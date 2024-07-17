@@ -1,0 +1,98 @@
+start-at-login = true
+
+enable-normalization-flatten-containers = false
+enable-normalization-opposite-orientation-for-nested-containers = false
+
+gaps.inner.horizontal = 2
+gaps.inner.vertical = 2
+gaps.outer.left = 2
+gaps.outer.bottom = 2
+gaps.outer.top = 2
+gaps.outer.right = 2
+
+[mode.main.binding]
+ctrl-t = "exec-and-forget osascript -e 'tell app \"iTerm2\" to activate' -e 'tell app \"iTerm2\" to create window with default profile'"
+
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+alt-shift-h = 'move-through left'
+alt-shift-j = 'move-through down'
+alt-shift-k= 'move-through up'
+alt-shift-l = 'move-through right'
+
+alt-f = 'fullscreen'
+
+# main monitor
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+alt-0 = 'workspace 10'
+
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+alt-shift-0 = 'move-node-to-workspace 10'
+
+#secondary monitor
+alt-a = 'workspace a'
+alt-b = 'workspace b'
+alt-c = 'workspace c'
+alt-d = 'workspace d'
+alt-e = 'workspace e'
+
+alt-shift-a = 'move-node-to-workspace a'
+alt-shift-b = 'move-node-to-workspace b'
+alt-shift-c = 'move-node-to-workspace c'
+alt-shift-d = 'move-node-to-workspace d'
+alt-shift-e = 'move-node-to-workspace e'
+
+alt-semicolon = 'workspace-back-and-forth'
+alt-shift-r = 'flatten-workspace-tree'
+
+alt-q = 'close'
+
+alt-r = 'mode resize'
+alt-m = 'mode move'
+alt-shift-semicolon = 'mode service'
+
+[workspace-to-monitor-force-assignment]
+a = 'secondary'
+b = 'secondary'
+c = 'secondary'
+d = 'secondary'
+e = 'secondary'
+
+[mode.service.binding]
+r = ['flatten-workspace-tree', 'layout h_tiles', 'mode main'] # reset layout
+f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+esc = ['reload-config', 'mode main']
+
+[mode.resize.binding]
+h = 'resize width -50'
+j = 'resize height +50'
+k = 'resize height -50'
+l = 'resize width +50'
+enter = 'mode main'
+esc = 'mode main'
+
+[mode.move.binding]
+alt-h = 'move-through left'
+alt-j = 'move-through down'
+alt-k = 'move-through up'
+alt-l = 'move-through right'
+esc = 'mode main'

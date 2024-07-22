@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 return Lang.makeSpec({
-  Lang.addFormatter({ markdown = { { "mdformat" } } }),
+  Lang.addFormatter({ markdown = { "mdformat" } }),
   Lang.addLspServer("marksman"),
   Lang.addTreesitterFiletypes({ "markdown", "markdown_inline" }),
   {

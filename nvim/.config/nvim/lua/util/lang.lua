@@ -107,4 +107,25 @@ M.addDap = function(s)
   }
 end
 
+---@param ft string
+---@param linter_name string | table<string>
+---@param impl lint.Linter?
+M.addLinter = function(ft, linter_name, impl)
+  local lint = require("lint")
+  if impl ~= nil then
+    lint.linters[linter_name] = impl
+  end
+
+  return {
+    {
+      "mfussenegger/nvim-lint",
+      opts = function(_, opts)
+        opts.linters_by_ft = vim.tbl_extend("force", opts.linters_by_ft or {}, { [ft] = { linter_name } })
+        opts.custom_linters = opts.custom_linters or {}
+        opts.custom_linters[linter_name] = lint.linters[linter_name]
+      end,
+    },
+  }
+end
+
 return M

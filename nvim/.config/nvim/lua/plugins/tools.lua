@@ -9,4 +9,25 @@ return {
       },
     },
   },
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      linters_by_ft = {},
+      custom_linters = {},
+    },
+    config = function(_, opts)
+      local lint = require("lint")
+      for name, impl in pairs(opts.custom_linters) do
+        lint.linters[name] = impl
+      end
+
+      lint.linters_by_ft = opts.linters_by_ft
+
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+        callback = function()
+          lint.try_lint()
+        end,
+      })
+    end,
+  },
 }

@@ -1,7 +1,7 @@
 local Lang = require("util.lang")
 
 return Lang.makeSpec({
-  Lang.addFormatter({ c = { { "clang-format" } }, cpp = { { "clang-format" } } }),
+  Lang.addFormatter({ c = { "clang-format" }, cpp = { "clang-format" } }),
   Lang.addTreesitterFiletypes({ "c", "cpp" }),
   Lang.addLspServer("clangd"),
   Lang.addDap("cpptools"),

@@ -6,7 +6,7 @@ return Lang.makeSpec({
     lazy = true,
     version = false,
   },
-  Lang.addFormatter({ json = { { "prettierd" } } }),
+  Lang.addFormatter({ json = { "prettierd" } }),
   Lang.addTreesitterFiletypes({
     "json",
     "json5",

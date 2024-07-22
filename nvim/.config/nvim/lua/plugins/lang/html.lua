@@ -6,7 +6,7 @@ return Lang.makeSpec({
   Lang.addLspServer("tailwindcss"),
   Lang.addLspServer("cssls"),
   Lang.addLspServer("htmx"),
-  Lang.addFormatter({ html = { { "prettierd" } }, css = { { "prettierd" } } }),
+  Lang.addFormatter({ html = { "prettierd" }, css = { "prettierd" } }),
   Lang.addTreesitterFiletypes({ "html", "css" }),
   {
     "hrsh7th/nvim-cmp",

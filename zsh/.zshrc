@@ -24,7 +24,6 @@ zcomet load zsh-users/zsh-autosuggestions
 
 zcomet compinit
 
-source <(fzf --zsh)
 eval "$(zoxide init zsh)"
 
 # Theme Stuff
@@ -32,19 +31,21 @@ eval "$(zoxide init zsh)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # User configuration
-source $HOME/.local/bin/zsh/vi_mode
-export PATH=/Users/charlieplate/.local/bin:$PATH
-export PATH=/Users/charlieplate/.local/share/bob/nvim-bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.local/share/bob/nvim-bin:$PATH
 export EDITOR='nvim'
-
+export TMS_CONFIG_FILE=$XDG_CONFIG_HOME/tms/config.toml
 export XDG_CONFIG_HOME=$HOME/.config
+export TERM=xterm-256color
+
 
 alias zshrc="nvim ~/.zshrc"
+alias szshrc="source ~/.zshrc"
 alias ebs-ssh="ssh -L 1521:localhost:1521  opc@ebsoci.projectgraphite.com"
 alias gtmux="sh ~/Documents/work/util/publicapi.sh"
 alias killGraphite="sh ~/Documents/work/util/killGraphite.sh"
 alias k="sh ~/Documents/work/util/killGraphiteProcess.sh"
-alias vim="nvim"
+alias ngp=". ngp"
 
 alias ls="eza"
 
@@ -60,34 +61,21 @@ export GOOGLE_APPLICATION_CREDENTIALS="/Users/charlieplate/Documents/work/graphi
 export JWT_TTL=1440
 export LOG_LEVEL="trace"
 # export EXTERNAL_INTERFACE_POLLING_ENABLED=true
-export SFTP_ADMIN_PRIVATE_KEY=$(cat /Users/charlieplate/.ssh/sftp_admin_nonprod)
-export SFTP_PGP_PRIVATE_KEY=$(cat /Users/charlieplate/Documents/work/util/keys/pgpPrivateKey)
+# export SFTP_ADMIN_PRIVATE_KEY=$(cat /Users/charlieplate/.ssh/sftp_admin_nonprod)
+# export SFTP_PGP_PRIVATE_KEY=$(cat /Users/charlieplate/Documents/work/util/keys/pgpPrivateKey)
 # export SENDGRID_DEV_TO="charlie+garbage@graphiteconnect.com"
 
 #node stuff
 nvm use --silent 20
 export PATH="/Users/charlieplate/.nvm/versions/node/v20.9.0/lib/node_modules/:$PATH"
 export PATH="$(yarn global bin):$PATH"
-# pnpm
-export PNPM_HOME="/Users/charlieplate/Library/pnpm"
-
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
-# bun completions
-[ -s "/Users/charlieplate/.bun/_bun" ] && source "/Users/charlieplate/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 
 # nvim
 export NVIM_WORK_DIR="/Users/charlieplate/Documents/work/graphite"
 
-# python
-PATH=$(pyenv root)/shims:$PATH
+# source "$HOME/.zsh_private_env"
 
-source "$HOME/.zsh_private_env"
 
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

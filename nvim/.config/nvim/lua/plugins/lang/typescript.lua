@@ -1,7 +1,7 @@
 local Dap = require("util.dap")
 local Lang = require("util.lang")
 
----@type function
+--[[ ---@type function
 ---@return lint.Linter
 local tslint_setup = function()
   return {
@@ -63,10 +63,15 @@ local tslint_setup = function()
     append_fname = true,
     stream = "stdout",
   }
-end
+end ]]
 
 return Lang.makeSpec({
-  Lang.addLspServer("tsserver"),
+  -- Lang.addLspServer("tsserver"),
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
   Lang.addFormatter({
     typescript = { "prettierd" },
     javascript = { "prettierd" },
@@ -75,7 +80,7 @@ return Lang.makeSpec({
   }),
   Lang.addDap("js-debug-adapter"),
   Lang.addTreesitterFiletypes({ "typescript", "javascript" }),
-  Lang.addLinter("typescript", "tslint", tslint_setup),
+  -- Lang.addLinter("typescript", "tslint", tslint_setup),
   {
     "mfussenegger/nvim-dap",
     opts = function()

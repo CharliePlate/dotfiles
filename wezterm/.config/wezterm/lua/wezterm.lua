@@ -3,14 +3,6 @@ local wezterm = require("wezterm")
 
 local config = {}
 
-local wezterm_config_nvim = wezterm.plugin.require("/Users/charlieplate/.config/wezterm/wezterm-config.nvim/")
-
-wezterm.on("user-var-changed", function(window, _, name, value)
-	local overrides = window:get_config_overrides() or {}
-	overrides = wezterm_config_nvim.override_user_var(overrides, name, value)
-	window:set_config_overrides(overrides)
-end)
-
 wezterm.on("clear-overrides", function(window, _)
 	window:set_config_overrides({})
 	window:toast_notification("wezterm", "config overrides cleared", nil, 2000)
@@ -44,7 +36,7 @@ config.keys = {
 
 config.automatically_reload_config = true
 config.use_ime = false
-config.font = wezterm.font("PragmasevkaNerdFont Nerd Font")
+config.font = wezterm.font("Pragmasevka Nerd Font")
 config.font_size = 20.0
 config.window_decorations = "RESIZE"
 config.term = "wezterm"

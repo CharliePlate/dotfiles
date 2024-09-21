@@ -43,4 +43,21 @@ return {
       { "<leader>gD", "<cmd>DiffviewClose<cr>", desc = "Close Diffview" },
     },
   },
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    opts = {
+      integrations = {
+        telescope = true,
+        diffview = true,
+      },
+    },
+    keys = {
+      { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
+    },
+  },
 }

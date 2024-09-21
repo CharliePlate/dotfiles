@@ -64,30 +64,6 @@ return {
       { "<leader>tS", function() require("neotest").run.stop() end, desc = "Stop" },
     },
   },
-
-  { "mvllow/stand.nvim", opts = { minute_interval = 15 } },
-  {
-    "winter-again/wezterm-config.nvim",
-    config = function()
-      local wez = require("wezterm-config")
-      wez.setup({
-        append_wezterm_to_rtp = false,
-      })
-
-      -- make wezterm transparent
-      -- wez.set_wezterm_user_var("window_background_opacity", 0.9)
-      -- wez.set_wezterm_user_var("macos_window_background_blur", 60)
-
-      vim.api.nvim_create_augroup("wezterm", { clear = true })
-      vim.api.nvim_create_autocmd("VimLeave", {
-        callback = function()
-          wez.set_wezterm_user_var("window_background_opacity", 100)
-          wez.set_wezterm_user_var("macos_window_background_blur", 0)
-        end,
-      })
-    end,
-    lazy = false,
-  },
   -- {
   --   "m4xshen/hardtime.nvim",
   --   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },

@@ -111,13 +111,13 @@ return {
         end,
         desc = "Toggle Terminal",
       },
-      {
-        "<leader>gg",
-        function()
-          require("util.git").lazy_git_toggle()
-        end,
-        desc = "LazyGit",
-      },
+      -- {
+      --   "<leader>gg",
+      --   function()
+      --     require("util.git").lazy_git_toggle()
+      --   end,
+      --   desc = "LazyGit",
+      -- },
     },
     opts = {
       size = 20,

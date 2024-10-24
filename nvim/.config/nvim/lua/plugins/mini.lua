@@ -10,6 +10,7 @@ function Root()
 end
 
 return {
+  ---@module "mini.misc"
   {
     "echasnovski/mini.misc",
     config = function()
@@ -32,6 +33,7 @@ return {
       vim.fn.chdir(root)
     end,
   },
+  ---@module "mini.icons"
   {
     "echasnovski/mini.icons",
     opts = {},
@@ -46,6 +48,7 @@ return {
       end
     end,
   },
+  ---@module "mini.files"
   {
     "echasnovski/mini.files",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -130,5 +133,27 @@ return {
         desc = "File Explorer",
       },
     },
+  },
+  ---@module "mini.animate"
+  {
+    "echasnovski/mini.animate",
+    version = false,
+    opts = function()
+      local animate = require("mini.animate")
+
+      return {
+        resize = {
+          timing = animate.gen_timing.linear({ duration = 50, unit = "total" }),
+        },
+        scroll = {
+          timing = animate.gen_timing.linear({ duration = 150, unit = "total" }),
+          subscroll = animate.gen_subscroll.equal({
+            predicate = function(total_scroll)
+              return total_scroll > 1
+            end,
+          }),
+        },
+      }
+    end,
   },
 }

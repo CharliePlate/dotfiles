@@ -203,6 +203,7 @@ return {
       { "<leader>fu", "<cmd>UndotreeToggle<cr>", desc = "Undo Tree" },
     },
   },
+  ---@module "flash"
   {
     "folke/flash.nvim",
     event = "VeryLazy",

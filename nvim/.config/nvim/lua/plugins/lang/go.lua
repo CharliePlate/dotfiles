@@ -26,6 +26,7 @@ return Lang.makeSpec({
   Lang.addDap("delve"),
   {
     "leoluz/nvim-dap-go",
+    ft = "go",
     opts = function()
       return {
         dap_configurations = {

@@ -70,7 +70,32 @@ return Lang.makeSpec({
   {
     "pmizio/typescript-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    opts = {},
+    event = "BufEnter",
+    ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+    opts = {
+      settings = {
+        tsserver_max_memory = "auto",
+        tsserver_plugins = { "@vue/typescript-plugin" },
+        tsserver_file_preferences = {
+          "javascript",
+          "javascriptreact",
+          "javascript.jsx",
+          "typescript",
+          "typescriptreact",
+          "typescript.tsx",
+          "vue",
+        },
+      },
+      filetypes = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+        "vue",
+      },
+    },
   },
   Lang.addFormatter({
     typescript = { "prettierd" },
@@ -113,7 +138,7 @@ return Lang.makeSpec({
               protocol = "inspector",
               console = "integratedTerminal",
               outFiles = { "${workspaceFolder}/dist/**/*.js" },
-              runtimeExecutable = "/Users/charlieplate/.yarn/bin/ts-node",
+              -- runtimeExecutable = "/Users/charlieplate/.yarn/bin/ts-node",
             },
           }
         end
@@ -123,12 +148,12 @@ return Lang.makeSpec({
   {
     "David-Kunz/jester",
     opts = {
-      cmd = "jest -t '$result' -- $file", -- run command
+      cmd = "npx jest -t '$result' -- $file", -- run command
       identifiers = { "test", "it" }, -- used to identify tests
       prepend = { "describe" }, -- prepend describe blocks
       expressions = { "call_expression" }, -- tree-sitter object used to scan for tests/describe blocks
       path_to_jest_run = "jest", -- used to run tests
-      path_to_jest_debug = "/Users/charlieplate/.yarn/bin/jest", -- used for debugging
+      path_to_jest_debug = "/Users/charlieplate/graphite/graphite/node_modules/.bin/jest", -- used to debug tests
       terminal_cmd = ":vsplit | terminal", -- used to spawn a terminal for running tests, for debugging refer to nvim-dap's config
       dap = { -- debug adapter configuration
         type = "pwa-node",
@@ -180,7 +205,9 @@ return Lang.makeSpec({
     opts = function(_, opts)
       return {
         adapters = vim.list_extend(opts.adapters or {}, {
-          require("neotest-jest")({}),
+          require("neotest-jest")({
+            jestCommand = "npx jest",
+          }),
         }),
       }
     end,

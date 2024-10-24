@@ -1,3 +1,7 @@
 [[search_dirs]]
-path = "/Users/charlieplate/projects"
+path = "/Users/charlieplate/graphite"
 depth = 10
+
+[[search_dirs]]
+path = "/Users/charlieplate/projects"
+depth = 1

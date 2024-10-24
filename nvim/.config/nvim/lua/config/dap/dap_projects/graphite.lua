@@ -2,7 +2,7 @@ local configurations = {}
 
 local ports = {
   ["Answers"] = 9230,
-  ["Public API"] = 9201,
+  ["Public API"] = 9202,
   ["Web API"] = 9229,
   ["Worker"] = 9231,
 }

@@ -7,7 +7,6 @@ return Lang.makeSpec({
   Lang.addDap("cpptools"),
   {
     "mfussenegger/nvim-dap",
-    optional = true,
     dependencies = {
       -- Ensure C/C++ debugger is installed
       "williamboman/mason.nvim",

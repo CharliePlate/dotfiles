@@ -40,12 +40,14 @@ export EDITOR='nvim'
 export XDG_CONFIG_HOME=$HOME/.config
 export TERM=xterm-256color
 source ~/.zshrc_private
+source <(fzf --zsh)
 
 alias zshrc="nvim ~/.zshrc"
 alias szshrc="source ~/.zshrc"
 alias ebs-ssh="ssh -L 1521:localhost:1521  opc@ebsoci.projectgraphite.com"
 alias ngp=". ngp"
 alias ls="eza"
+
 
 [[ $TMUX ]] && alias fzf=fzf --tmux
 

@@ -18,19 +18,32 @@ return Lang.makeSpec({
       },
       { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
       { "justinsgithub/wezterm-types", lazy = true }, -- optional `wezterm` typings
-      { -- optional completion source for require statements and module annotations
-        "hrsh7th/nvim-cmp",
-        opts = function(_, opts)
-          opts.sources = opts.sources or {}
-          table.insert(opts.sources, {
-            name = "lazydev",
-          })
-        end,
-      },
+      -- {
+      --   "saghen/blink.cmp",
+      --   opts = {
+      --     sources = {
+      --       completion = {
+      --         -- add lazydev to your completion providers
+      --         enabled_providers = { "lazydev" },
+      --       },
+      --       providers = {
+      --         lsp = {
+      --           -- dont show LuaLS require statements when lazydev has items
+      --           fallback_for = { "lazydev" },
+      --         },
+      --         lazydev = {
+      --           name = "LazyDev",
+      --           module = "lazydev.integrations.blink",
+      --         },
+      --       },
+      --     },
+      --   },
+      -- },
     },
   },
   {
     "jbyuki/one-small-step-for-vimkind",
+    lazy = true,
     dependencies = {
       "mfussenegger/nvim-dap",
       opts = function()

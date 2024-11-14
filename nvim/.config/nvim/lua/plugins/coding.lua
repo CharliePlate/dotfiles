@@ -46,17 +46,19 @@ return {
     },
   },
   {
+    ---@module "CopilotChat"
     "CopilotC-Nvim/CopilotChat.nvim",
-
     branch = "canary",
     dependencies = {
-      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+      { "zbirenbaum/copilot.lua" },
+      { "nvim-lua/plenary.nvim" },
     },
     opts = function()
       local user = vim.env.USER or "User"
+      ---@type CopilotChat.config
       return {
         model = "gpt-4",
+        debug = false,
         auto_insert_mode = true,
         show_help = true,
         question_header = "  " .. user .. " ",
@@ -163,92 +165,134 @@ return {
     },
   },
   {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
+    lazy = false,
+    build = "cargo build --release",
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
+      "rafamadriz/friendly-snippets",
     },
-    event = { "InsertEnter", "CmdLineEnter" },
-    opts = function(_, opts)
-      local cmp = require("cmp")
-      return {
-        snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end,
+    event = "InsertEnter",
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      highlight = {
+        use_nvim_cmp_as_default = true,
+      },
+      nerd_font_variant = "normal",
+      windows = {
+        autocomplete = {
+          border = "rounded",
+          winblend = vim.o.pumblend,
         },
-        window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
+        documentation = {
+          auto_show = true,
+          border = "rounded",
         },
-        sources = cmp.config.sources(fn.mergeArrays(opts.sources or {}, {
-          { name = "nvim_lsp", priority = 1000 },
-          { name = "luasnip", priority = 750 },
-          { name = "path", priority = 500 },
-          { name = "buffer", priority = 250 },
-        })),
-        mapping = cmp.mapping.preset.insert({
-          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ["<S-CR>"] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ["<C-CR>"] = function(fallback)
-            cmp.abort()
-            fallback()
-          end,
-        }),
+        ghost_text = {
+          enabled = true,
+        },
+      },
+
+      accept = { auto_brackets = { enabled = true } },
+      trigger = { signature_help = { enabled = true } },
+      sources = {
         completion = {
-          completeopt = "menu,menuone,noinsert",
+          -- remember to enable your providers here
+          enabled_providers = { "lsp", "path", "snippets", "buffer" },
         },
-        formatting = {
-          format = function(_, item)
-            local icons = require("util.icons").kinds
-            if icons[item.kind] then
-              item.kind = icons[item.kind] .. item.kind
-            end
-            return item
-          end,
-        },
-        experimental = {
-          ghost_text = {
-            hl_group = "CmpGhostText",
-          },
-        },
-      }
-    end,
-    config = function(_, opts)
-      vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
-      require("cmp").setup(opts)
-      local cmp = require("cmp")
-      ---@diagnostic disable-next-line: missing-fields
-      cmp.setup.cmdline({ "/", "?" }, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = "buffer" },
-        },
-      })
-      ---@diagnostic disable-next-line: missing-fields
-      cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = "path" },
-        }, {
-          { name = "cmdline" },
-        }),
-      })
-    end,
+      },
+      keymap = {
+        preset = "enter",
+      },
+    },
   },
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   dependencies = {
+  --     "hrsh7th/cmp-nvim-lsp",
+  --     "hrsh7th/cmp-buffer",
+  --     "hrsh7th/cmp-path",
+  --     "hrsh7th/cmp-cmdline",
+  --     "L3MON4D3/LuaSnip",
+  --     "saadparwaiz1/cmp_luasnip",
+  --   },
+  --   event = { "InsertEnter", "CmdLineEnter" },
+  --   opts = function(_, opts)
+  --     local cmp = require("cmp")
+  --     return {
+  --       snippet = {
+  --         expand = function(args)
+  --           require("luasnip").lsp_expand(args.body)
+  --         end,
+  --       },
+  --       window = {
+  --         completion = cmp.config.window.bordered(),
+  --         documentation = cmp.config.window.bordered(),
+  --       },
+  --       sources = cmp.config.sources(fn.mergeArrays(opts.sources or {}, {
+  --         { name = "nvim_lsp", priority = 1000 },
+  --         { name = "luasnip", priority = 750 },
+  --         { name = "path", priority = 500 },
+  --         { name = "buffer", priority = 250 },
+  --       })),
+  --       mapping = cmp.mapping.preset.insert({
+  --         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+  --         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+  --         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+  --         ["<C-f>"] = cmp.mapping.scroll_docs(4),
+  --         ["<C-Space>"] = cmp.mapping.complete(),
+  --         ["<C-e>"] = cmp.mapping.abort(),
+  --         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  --         ["<S-CR>"] = cmp.mapping.confirm({
+  --           behavior = cmp.ConfirmBehavior.Replace,
+  --           select = true,
+  --         }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  --         ["<C-CR>"] = function(fallback)
+  --           cmp.abort()
+  --           fallback()
+  --         end,
+  --       }),
+  --       completion = {
+  --         completeopt = "menu,menuone,noinsert",
+  --       },
+  --       formatting = {
+  --         format = function(_, item)
+  --           local icons = require("util.icons").kinds
+  --           if icons[item.kind] then
+  --             item.kind = icons[item.kind] .. item.kind
+  --           end
+  --           return item
+  --         end,
+  --       },
+  --       experimental = {
+  --         ghost_text = {
+  --           hl_group = "CmpGhostText",
+  --         },
+  --       },
+  --     }
+  --   end,
+  --   config = function(_, opts)
+  --     vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
+  --     require("cmp").setup(opts)
+  --     local cmp = require("cmp")
+  --     ---@diagnostic disable-next-line: missing-fields
+  --     cmp.setup.cmdline({ "/", "?" }, {
+  --       mapping = cmp.mapping.preset.cmdline(),
+  --       sources = {
+  --         { name = "buffer" },
+  --       },
+  --     })
+  --     ---@diagnostic disable-next-line: missing-fields
+  --     cmp.setup.cmdline(":", {
+  --       mapping = cmp.mapping.preset.cmdline(),
+  --       sources = cmp.config.sources({
+  --         { name = "path" },
+  --       }, {
+  --         { name = "cmdline" },
+  --       }),
+  --     })
+  --   end,
+  -- },
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },

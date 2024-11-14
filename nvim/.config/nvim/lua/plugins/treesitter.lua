@@ -211,51 +211,6 @@ return {
         default_lazy = true,
         default_fallback = "auto",
       },
-      -- textobjects = {
-      --   select = {
-      --     enable = true,
-      --     lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      --     keymaps = {
-      --       -- You can use the capture groups defined in textobjects.scm
-      --       ["aa"] = "@parameter.outer",
-      --       ["ia"] = "@parameter.inner",
-      --       ["ai"] = "@conditional.outer",
-      --       ["ii"] = "@conditional.inner",
-      --       ["al"] = "@loop.outer",
-      --       ["il"] = "@loop.inner",
-      --       ["af"] = "@function.outer",
-      --       ["if"] = "@function.inner",
-      --     },
-      --   },
-      --   move = {
-      --     enable = true,
-      --     set_jumps = true, -- whether to set jumps in the jumplist
-      --     goto_next_start = {
-      --       ["]a"] = "@parameter.outer",
-      --       ["]l"] = "@loop.outer",
-      --       ["]i"] = "@conditional.outer",
-      --       ["]f"] = "@function.outer",
-      --     },
-      --     goto_next_end = {
-      --       ["]A"] = "@parameter.outer",
-      --       ["]L"] = "@loop.outer",
-      --       ["]I"] = "@conditional.outer",
-      --       ["]F"] = "@function.outer",
-      --     },
-      --     goto_previous_start = {
-      --       ["[a"] = "@parameter.outer",
-      --       ["[l"] = "@loop.outer",
-      --       ["[i"] = "@conditional.outer",
-      --       ["[f"] = "@function.outer",
-      --     },
-      --     goto_previous_end = {
-      --       ["[A"] = "@parameter.outer",
-      --       ["[L"] = "@loop.outer",
-      --       ["[I"] = "@conditional.outer",
-      --       ["[F"] = "@function.outer",
-      --     },
-      --   },
-      -- },
     },
   },
 }

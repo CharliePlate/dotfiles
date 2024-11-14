@@ -23,16 +23,6 @@ return {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     version = false, -- telescope did only one release, so use HEAD for now
-    dependencies = {
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-        enabled = vim.fn.executable("make") == 1,
-        config = function()
-          require("telescope").load_extension("fzf")
-        end,
-      },
-    },
     opts = function()
       return {
         pickers = {
@@ -49,6 +39,9 @@ return {
               },
             },
           },
+          current_buffer_fuzzy_find = {
+            theme = "ivy",
+          },
         },
       }
     end,
@@ -58,7 +51,8 @@ return {
 			{ "<leader>fF", function() require('telescope.builtin').find_files() end, desc = "Find Files (Root)" },
       { "<leader>fg", function() require('telescope.builtin').live_grep({cwd=Fn.lspRoot()}) end, desc = "Grep (LSP)"},
       { "<leader>fG", function() require('telescope.builtin').live_grep() end, desc = "Grep (Root)" },
-      { "<leader>fb", function() require('telescope.builtin').buffers() end, desc = "Buffers"}
+      { "<leader>fb", function() require('telescope.builtin').buffers() end, desc = "Buffers"},
+      { "<leader>ft", function() require('telescope.builtin').current_buffer_fuzzy_find() end, desc = "Grep in Buffer"}
 		},
   },
   {
@@ -238,67 +232,15 @@ return {
         save_on_toggle = true,
       },
     },
+    --stylua: ignore
     keys = {
-      {
-        "<leader>a",
-        function()
-          require("harpoon"):list():add()
-        end,
-        desc = "Harpoon File",
-      },
-      {
-        "<leader>h",
-        function()
-          local harpoon = require("harpoon")
-          harpoon.ui:toggle_quick_menu(harpoon:list())
-        end,
-        desc = "Harpoon Quick Menu",
-      },
-      {
-        "<c-h>",
-        function()
-          require("harpoon"):list():select(1)
-        end,
-        desc = "Harpoon to File 1",
-      },
-      {
-        "<c-j>",
-        function()
-          require("harpoon"):list():select(2)
-        end,
-        desc = "Harpoon to File 2",
-      },
-      {
-        "<c-k>",
-        function()
-          require("harpoon"):list():select(3)
-        end,
-        desc = "Harpoon to File 3",
-      },
-      {
-        "<c-l>",
-        function()
-          require("harpoon"):list():select(4)
-        end,
-        desc = "Harpoon to File 4",
-      },
-      {
-        "<c-'>",
-        function()
-          require("harpoon"):list():select(5)
-        end,
-        desc = "Harpoon to File 5",
-      },
-    },
-  },
-  {
-    "nvim-pack/nvim-spectre",
-    build = false,
-    cmd = "Spectre",
-    opts = { open_cmd = "noswapfile vnew" },
-    -- stylua: ignore
-    keys = {
-      { "<leader>sr", function() require("spectre").open() end, desc = "Replace in Files (Spectre)" },
+      { "<leader>a", function() require("harpoon"):list():add() end, desc = "Harpoon File", },
+      { "<leader>h", function() local harpoon = require("harpoon") harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "Harpoon Quick Menu", },
+      { "<c-h>", function() require("harpoon"):list():select(1) end, desc = "Harpoon to File 1", },
+      { "<c-j>", function() require("harpoon"):list():select(2) end, desc = "Harpoon to File 2", },
+      { "<c-k>", function() require("harpoon"):list():select(3) end, desc = "Harpoon to File 3", },
+      { "<c-l>", function() require("harpoon"):list():select(4) end, desc = "Harpoon to File 4", },
+      { "<c-;>", function() require("harpoon"):list():select(5) end, desc = "Harpoon to File 5", },
     },
   },
 }

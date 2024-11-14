@@ -14,21 +14,6 @@ return {
       vim.cmd.colorscheme("rose-pine")
     end,
   },
-  -- {
-  --   "scottmckendry/cyberdream.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     require("cyberdream").setup({
-  --       transparent = true,
-  --       italic_comments = true,
-  --       hide_fillchars = true,
-  --       borderless_telescope = true,
-  --       terminal_colors = true,
-  --     })
-  --     vim.cmd("colorscheme cyberdream") -- set the colorscheme
-  --   end,
-  -- },
   {
     "stevearc/dressing.nvim",
     lazy = true,

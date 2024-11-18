@@ -6,39 +6,35 @@ return Lang.makeSpec({
     dependencies = {
       {
         "folke/lazydev.nvim",
-        ft = "lua", -- only load on lua files
+        ft = "lua",
+        cmd = "LazyDev",
         opts = {
           library = {
-            { path = "luvit-meta/library", words = { "vim%.uv" } },
             { path = "wezterm-types", mods = { "wezterm" } },
-            { path = "LazyVim", words = { "LazyVim" } },
-            { path = "lazy.nvim", words = { "LazyVim" } },
+            "lazy.nvim",
           },
         },
       },
-      { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
       { "justinsgithub/wezterm-types", lazy = true }, -- optional `wezterm` typings
-      -- {
-      --   "saghen/blink.cmp",
-      --   opts = {
-      --     sources = {
-      --       completion = {
-      --         -- add lazydev to your completion providers
-      --         enabled_providers = { "lazydev" },
-      --       },
-      --       providers = {
-      --         lsp = {
-      --           -- dont show LuaLS require statements when lazydev has items
-      --           fallback_for = { "lazydev" },
-      --         },
-      --         lazydev = {
-      --           name = "LazyDev",
-      --           module = "lazydev.integrations.blink",
-      --         },
-      --       },
-      --     },
-      --   },
-      -- },
+      {
+        "saghen/blink.cmp",
+        opts = {
+          sources = {
+            completion = {
+              enabled_providers = { "lazydev" },
+            },
+            providers = {
+              lsp = {
+                fallback_for = { "lazydev" },
+              },
+              lazydev = {
+                name = "LazyDev",
+                module = "lazydev.integrations.blink",
+              },
+            },
+          },
+        },
+      },
     },
   },
   {

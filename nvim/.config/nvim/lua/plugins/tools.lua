@@ -3,8 +3,11 @@ return {
     "stevearc/conform.nvim",
     opts = {
       formatters_by_ft = {},
-      format_on_save = {
-        timeout_ms = 2000,
+      -- format_on_save = {
+      --   lsp_fallback = true,
+      --   timeout_ms = 10000,
+      -- },
+      format_after_save = {
         lsp_fallback = true,
       },
     },

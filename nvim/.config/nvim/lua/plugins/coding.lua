@@ -168,6 +168,10 @@ return {
     "saghen/blink.cmp",
     lazy = false,
     build = "cargo build --release",
+    opts_extend = {
+      "sources.completion.enabled_providers",
+      "sources.compat",
+    },
     dependencies = {
       "rafamadriz/friendly-snippets",
     },
@@ -192,9 +196,8 @@ return {
           enabled = true,
         },
       },
-
       accept = { auto_brackets = { enabled = true } },
-      trigger = { signature_help = { enabled = true } },
+      -- trigger = { signature_help = { enabled = true } },
       sources = {
         completion = {
           -- remember to enable your providers here
@@ -205,6 +208,20 @@ return {
         preset = "enter",
       },
     },
+    config = function(_, opts)
+      local enabled = opts.sources.completion.enabled_providers
+      for _, source in ipairs(opts.sources.compat or {}) do
+        opts.sources.providers[source] = vim.tbl_deep_extend(
+          "force",
+          { name = source, module = "blink.compat.source" },
+          opts.sources.providers[source] or {}
+        )
+        if type(enabled) == "table" and not vim.tbl_contains(enabled, source) then
+          table.insert(enabled, source)
+        end
+      end
+      require("blink.cmp").setup(opts)
+    end,
   },
   -- {
   --   "hrsh7th/nvim-cmp",

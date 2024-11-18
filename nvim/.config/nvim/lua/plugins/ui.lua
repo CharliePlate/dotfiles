@@ -1,19 +1,19 @@
 return {
-  {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    priority = 1000,
-    opts = {
-      styles = {
-        bold = true,
-        italic = false,
-        -- transparency = true,
-      },
-    },
-    init = function()
-      vim.cmd.colorscheme("rose-pine")
-    end,
-  },
+  -- {
+  --   "rose-pine/neovim",
+  --   name = "rose-pine",
+  --   priority = 1000,
+  --   opts = {
+  --     styles = {
+  --       bold = true,
+  --       italic = false,
+  --       -- transparency = true,
+  --     },
+  --   },
+  --   init = function()
+  --     vim.cmd.colorscheme("rose-pine")
+  --   end,
+  -- },
   {
     "stevearc/dressing.nvim",
     lazy = true,

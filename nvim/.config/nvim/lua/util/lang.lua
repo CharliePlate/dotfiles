@@ -3,6 +3,8 @@ local fn = require("util.fn")
 ---@class Lang
 local M = {}
 
+---@param t table
+---@return table<table>
 M.makeSpec = function(t)
   local spec = {}
   for _, value in ipairs(t) do

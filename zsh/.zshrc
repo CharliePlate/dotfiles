@@ -73,3 +73,7 @@ export NVIM_WORK_DIR="$HOME/graphite/graphite/"
 export NVM_DIR="$HOME/.config/nvm"
 
 export TMS_CONFIG_FILE=$XDG_CONFIG_HOME/tms/config.toml
+
+if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+export PATH="$HOME/.jenv/shims:$PATH"
+jenv global 17

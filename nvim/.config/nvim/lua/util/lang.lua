@@ -72,10 +72,12 @@ end
 
 ---@param lsp string
 ---@param hints? boolean
-M.addLspServer = function(lsp, hints)
+---@param dependencies? table
+M.addLspServer = function(lsp, hints, dependencies)
   return {
     {
       "neovim/nvim-lspconfig",
+      dependencies = dependencies,
       opts = function(_, opts)
         local ok, config = pcall(require, "config.lsp." .. lsp)
         if ok then

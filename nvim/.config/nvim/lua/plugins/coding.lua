@@ -33,15 +33,43 @@ return {
       },
     },
   },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   event = "InsertEnter",
+  --   opts = {
+  --     suggestion = {
+  --       keymap = {
+  --         next = "jj",
+  --         accept = "jl",
+  --       },
+  --     },
+  --   },
+  -- },
   {
-    "zbirenbaum/copilot.lua",
-    event = "InsertEnter",
+    "supermaven-inc/supermaven-nvim",
     opts = {
-      suggestion = {
-        keymap = {
-          next = "jj",
-          accept = "jl",
-        },
+      keymaps = {
+        accept_suggestion = "jl",
+      },
+    },
+    config = function(_, opts)
+      require("supermaven-nvim").setup(opts)
+      local api = require("supermaven-nvim.api")
+      api.stop()
+    end,
+    keys = {
+      {
+        "<leader>ss",
+        function()
+          local api = require("supermaven-nvim.api")
+          if not api.is_running() then
+            api.start()
+          else
+            api.stop()
+          end
+        end,
+        desc = "Toggle Supermaven",
+        mode = { "n" },
       },
     },
   },
@@ -168,8 +196,9 @@ return {
     "saghen/blink.cmp",
     lazy = false,
     build = "cargo build --release",
+    -- version = "*",
     opts_extend = {
-      "sources.completion.enabled_providers",
+      "sources.default",
       "sources.compat",
     },
     dependencies = {
@@ -178,38 +207,49 @@ return {
     event = "InsertEnter",
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
+    ---@diagnostic disable
     opts = {
-      highlight = {
-        use_nvim_cmp_as_default = true,
+      appearance = {
+        use_nvim_cmp_as_default = false,
+        nerd_font_variant = "normal",
       },
-      nerd_font_variant = "normal",
-      windows = {
-        autocomplete = {
+      completion = {
+        accept = {
+          auto_brackets = {
+            enabled = true,
+          },
+        },
+        menu = {
           border = "rounded",
           winblend = vim.o.pumblend,
+          draw = {
+            treesitter = { "lsp" },
+          },
         },
         documentation = {
+          window = {
+            border = "rounded",
+          },
           auto_show = true,
-          border = "rounded",
+          auto_show_delay_ms = 200,
         },
         ghost_text = {
-          enabled = true,
+          enabled = vim.g.ai_cmp,
         },
       },
-      accept = { auto_brackets = { enabled = true } },
-      -- trigger = { signature_help = { enabled = true } },
       sources = {
-        completion = {
-          -- remember to enable your providers here
-          enabled_providers = { "lsp", "path", "snippets", "buffer" },
-        },
+        compat = {},
+        default = { "lsp", "path", "snippets", "buffer" },
+      },
+      cmdline = {
+        enabled = true,
       },
       keymap = {
-        preset = "enter",
+        preset = "super-tab",
       },
     },
     config = function(_, opts)
-      local enabled = opts.sources.completion.enabled_providers
+      local enabled = opts.sources.default
       for _, source in ipairs(opts.sources.compat or {}) do
         opts.sources.providers[source] = vim.tbl_deep_extend(
           "force",
@@ -220,6 +260,38 @@ return {
           table.insert(enabled, source)
         end
       end
+
+      -- Unset custom prop to pass blink.cmp validation
+      opts.sources.compat = nil
+
+      -- check if we need to override symbol kinds
+      for _, provider in pairs(opts.sources.providers or {}) do
+        ---@cast provider blink.cmp.SourceProviderConfig|{kind?:string}
+        if provider.kind then
+          local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+          local kind_idx = #CompletionItemKind + 1
+
+          CompletionItemKind[kind_idx] = provider.kind
+          ---@diagnostic disable-next-line: no-unknown
+          CompletionItemKind[provider.kind] = kind_idx
+
+          ---@type fun(ctx: blink.cmp.Context, items: blink.cmp.CompletionItem[]): blink.cmp.CompletionItem[]
+          local transform_items = provider.transform_items
+          ---@param ctx blink.cmp.Context
+          ---@param items blink.cmp.CompletionItem[]
+          provider.transform_items = function(ctx, items)
+            items = transform_items and transform_items(ctx, items) or items
+            for _, item in ipairs(items) do
+              item.kind = kind_idx or item.kind
+            end
+            return items
+          end
+
+          -- Unset custom prop to pass blink.cmp validation
+          provider.kind = nil
+        end
+      end
+
       require("blink.cmp").setup(opts)
     end,
   },

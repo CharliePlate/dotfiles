@@ -4,4 +4,8 @@ depth = 10
 
 [[search_dirs]]
 path = "/Users/charlieplate/projects"
-depth = 1
+depth = 2
+
+[[search_dirs]]
+path = "/Users/charlieplate/school"
+depth = 2

@@ -178,7 +178,6 @@ return {
     end,
     dependencies = {
       { "nvim-treesitter/playground" },
-      { "timakro/vim-yadi" },
       { "HiPhish/nvim-ts-rainbow2" },
       { "windwp/nvim-ts-autotag", opts = {
         filetypes = { "html", "xml", "templ" },
@@ -204,12 +203,8 @@ return {
       autopairs = {
         enable = true,
       },
-      indent = { enable = false, disable = { "python", "css" } },
-      yati = {
+      indent = {
         enable = true,
-        disable = { "python" },
-        default_lazy = true,
-        default_fallback = "auto",
       },
     },
   },

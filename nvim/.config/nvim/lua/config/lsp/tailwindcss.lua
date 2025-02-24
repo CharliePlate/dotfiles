@@ -1,4 +1,4 @@
-local filetypes = { "html", "css", "scss", "javascriptreact", "typescriptreact", "templ" }
+local filetypes = { "html", "css", "scss", "javascriptreact", "typescriptreact", "templ", "svelte" }
 
 return {
   filetypes = filetypes,

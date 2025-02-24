@@ -1,5 +1,3 @@
-local DapProjects = require("config.dap.configured_projects")
-
 local M = {}
 
 M.load_dap_config = function(configurations)
@@ -21,12 +19,14 @@ M.load_dap_config = function(configurations)
 end
 
 M.root_is_configured = function()
-  return DapProjects[vim.fn.getcwd()] ~= nil
+  local projects = require("config.dap.configured_projects")
+  return projects[vim.fn.getcwd()] ~= nil
 end
 
 M.load_if_configured = function()
   if M.root_is_configured() then
-    M.load_dap_config(DapProjects[vim.fn.getcwd()])
+    local projects = require("config.dap.configured_projects")
+    M.load_dap_config(projects[vim.fn.getcwd()])
   end
 end
 

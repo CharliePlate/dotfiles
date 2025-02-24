@@ -69,7 +69,7 @@ export PATH="$HOME/.nvm/versions/node/v20.9.0/lib/node_modules/:$PATH"
 export PATH="$(yarn global bin):$PATH"
 
 # nvim
-export NVIM_WORK_DIR="$HOME/graphite/graphite/"
+export NVIM_WORK_DIR="$HOME/graphite/graphite"
 export NVM_DIR="$HOME/.config/nvm"
 
 export TMS_CONFIG_FILE=$XDG_CONFIG_HOME/tms/config.toml

@@ -45,10 +45,9 @@ opt.signcolumn = "yes"
 opt.smartcase = true
 opt.smartindent = true
 opt.termguicolors = true
+opt.autoindent = true
 
-if vim.fn.has("nvim-0.10") == 1 then
-  opt.smoothscroll = true
-end
+opt.smoothscroll = true
 
 opt.splitbelow = true -- Put new windows below current
 opt.splitkeep = "screen"

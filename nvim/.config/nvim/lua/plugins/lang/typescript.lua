@@ -173,28 +173,12 @@ return Lang.makeSpec({
         remoteRoot = "${workspaceFolder}/src",
       },
     },
-    config = function(_, opts)
-      require("jester").setup(opts)
-      vim.api.nvim_set_keymap(
-        "n",
-        "<leader>dtd",
-        "<cmd>lua require'jester'.debug()<cr>",
-        { noremap = true, desc = "Debug test" }
-      )
-      vim.api.nvim_set_keymap(
-        "n",
-        "<leader>dtr",
-        "<cmd>lua require'jester'.run()<cr>",
-        { noremap = true, desc = "Run test" }
-      )
-      vim.api.nvim_set_keymap(
-        "n",
-        "<leader>dtf",
-        "<cmd>lua require'jester'.run_file()<cr>",
-        { noremap = true, desc = "Run file" }
-      )
-    end,
-    ft = { "javascript", "typescript", "typescriptreact", "javascriptreact" },
+    --stylua: ignore
+    keys = {
+      { "<leader>dtd", function() require("jester").debug() end, desc = "Debug test" },
+      { "<leader>dtf", function() require("jester").run_file() end, desc = "Run file" },
+      { "<leader>dtr", function() require("jester").run() end, desc = "Run file" },
+    },
   },
   {
     "nvim-neotest/neotest",
@@ -207,6 +191,22 @@ return Lang.makeSpec({
         adapters = vim.list_extend(opts.adapters or {}, {
           require("neotest-jest")({
             jestCommand = "npx jest",
+            strategy_config = {
+              type = "pwa-node",
+              request = "launch",
+              webRoot = "${workspaceFolder}/src",
+              remoteRoot = "${workspaceFolder}/src",
+              runtimeArgs = {
+                "--inspect-brk",
+                "./node_modules/.bin/jest",
+                "--no-coverage",
+                "-t",
+                "",
+              },
+              args = { "--no-cache" },
+              console = "integratedTerminal",
+              cwd = vim.fn.getcwd(),
+            },
           }),
         }),
       }

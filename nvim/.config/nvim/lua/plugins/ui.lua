@@ -1,19 +1,21 @@
 return {
-  -- {
-  --   "rose-pine/neovim",
-  --   name = "rose-pine",
-  --   priority = 1000,
-  --   opts = {
-  --     styles = {
-  --       bold = true,
-  --       italic = false,
-  --       -- transparency = true,
-  --     },
-  --   },
-  --   init = function()
-  --     vim.cmd.colorscheme("rose-pine")
-  --   end,
-  -- },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    priority = 1000,
+    opts = {
+      variant = "moon",
+      styles = {
+        bold = true,
+        italic = false,
+        -- transparency = true,
+      },
+    },
+    config = function(_, opts)
+      require("rose-pine").setup(opts)
+      vim.cmd("colorscheme rose-pine")
+    end,
+  },
   {
     "stevearc/dressing.nvim",
     lazy = true,
@@ -175,11 +177,15 @@ return {
           component_separators = "",
           section_separators = "",
           theme = {
-            -- We are going to use lualine_c an lualine_x as left and
-            -- right section. Both are highlighted by c theme .  So we
-            -- are just setting default looks o statusline
             normal = { c = { fg = colors.fg, bg = colors.bg } },
             inactive = { c = { fg = colors.fg, bg = colors.bg } },
+          },
+          disabled_filetypes = {
+            statusline = {
+              "AvanteInput",
+              "Avante",
+              "AvanteSelectedFiles",
+            },
           },
         },
         sections = {
@@ -313,6 +319,60 @@ return {
           removed = { fg = colors.red },
         },
         cond = conditions.hide_in_width,
+      })
+
+      local cc = require("lualine.component"):extend()
+
+      cc.processing = false
+      cc.spinner_index = 1
+
+      local spinner_symbols = {
+        "⠋",
+        "⠙",
+        "⠹",
+        "⠸",
+        "⠼",
+        "⠴",
+        "⠦",
+        "⠧",
+        "⠇",
+        "⠏",
+      }
+      local spinner_symbols_len = 10
+
+      -- Initializer
+      function cc:init(options)
+        cc.super.init(self, options)
+
+        local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
+
+        vim.api.nvim_create_autocmd({ "User" }, {
+          pattern = "CodeCompanionRequest*",
+          group = group,
+          callback = function(request)
+            if request.match == "CodeCompanionRequestStarted" then
+              self.processing = true
+            elseif request.match == "CodeCompanionRequestFinished" then
+              self.processing = false
+            end
+          end,
+        })
+      end
+
+      -- Function that runs every time statusline is updated
+      function cc:update_status()
+        if self.processing then
+          self.spinner_index = (self.spinner_index % spinner_symbols_len) + 1
+          return spinner_symbols[self.spinner_index]
+        else
+          return nil
+        end
+      end
+
+      ins_right({
+        cc,
+        cond = conditions.hide_in_width,
+        color = { fg = colors.cyan },
       })
 
       ins_right({

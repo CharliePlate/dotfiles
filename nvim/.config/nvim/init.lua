@@ -31,4 +31,4 @@ require("lazy").setup({
   },
 })
 
-require("util.theme").setup()
+-- require("util.theme").setup()

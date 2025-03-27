@@ -445,4 +445,12 @@ return {
     "m-demare/hlargs.nvim",
     opts = {},
   },
+  -- {
+  --   "folke/snacks.nvim",
+  --   opts = {
+  --     scroll = {
+  --       enabled = true,
+  --     },
+  --   },
+  -- },
 }

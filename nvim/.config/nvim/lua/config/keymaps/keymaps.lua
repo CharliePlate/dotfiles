@@ -1,13 +1,13 @@
 local Keys = require("util.keys")
 
 -- ---@type LazyKeysSpec[]
--- local scroll_recenter = {
---   { "<c-f>", "<c-f>zz", desc = "Full Page Scroll Down" },
---   { "<c-d>", "<c-d>zz", desc = "Half Page Scroll Down" },
---   { "<c-b>", "<c-b>zz", desc = "Full Page Scroll Up" },
---   { "G", "Gzz", desc = "Scroll to Bottom" },
---   { "<c-u>", "<c-u>zz", desc = "Half Page Scroll Up" },
--- }
+local scroll_recenter = {
+  { "<c-f>", "<c-f>zz", desc = "Full Page Scroll Down" },
+  { "<c-d>", "<c-d>zz", desc = "Half Page Scroll Down" },
+  { "<c-b>", "<c-b>zz", desc = "Full Page Scroll Up" },
+  { "G", "Gzz", desc = "Scroll to Bottom" },
+  { "<c-u>", "<c-u>zz", desc = "Half Page Scroll Up" },
+}
 
 ---@type LazyKeysSpec[]
 -- local window_nav = {
@@ -61,7 +61,7 @@ Keys.addKey({ "<esc>", ":noh<cr>", desc = "Clear Search Highlight" })
 Keys.addKey({ "jk", "<c-o>a", mode = "i", desc = "Move one character right" })
 Keys.addKey({ "<leader>lr", ":IncRename ", desc = "Incremental Rename" })
 --Keys.addKeys(window_nav)
--- Keys.addKeys(scroll_recenter)
+Keys.addKeys(scroll_recenter)
 Keys.addKeys(move_code)
 Keys.addKeys(diagnostic)
 Keys.addKeys(fix_terminal_modifiers)

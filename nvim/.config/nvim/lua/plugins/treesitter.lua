@@ -200,9 +200,9 @@ return {
       highlight = {
         enable = true,
       },
-      autopairs = {
-        enable = true,
-      },
+      -- autopairs = {
+      --   enable = true,
+      -- },
       indent = {
         enable = true,
       },

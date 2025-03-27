@@ -4,7 +4,9 @@ return {
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
-    opts = {},
+    opts = {
+      disable_in_macro = false,
+    },
     config = function(_, opts)
       local Cond = require("nvim-autopairs.conds")
       local Rule = require("nvim-autopairs.rule")
@@ -105,13 +107,13 @@ return {
         end,
         desc = "Toggle Terminal",
       },
-      -- {
-      --   "<leader>gg",
-      --   function()
-      --     require("util.git").lazy_git_toggle()
-      --   end,
-      --   desc = "LazyGit",
-      -- },
+      {
+        "<leader>gg",
+        function()
+          require("util.git").lazy_git_toggle()
+        end,
+        desc = "LazyGit",
+      },
     },
     opts = {
       size = 20,
@@ -220,27 +222,5 @@ return {
         { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
         { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
       },
-  },
-  {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    opts = {
-      menu = {
-        width = vim.api.nvim_win_get_width(0) - 4,
-      },
-      settings = {
-        save_on_toggle = true,
-      },
-    },
-    --stylua: ignore
-    keys = {
-      { "<leader>a", function() require("harpoon"):list():add() end, desc = "Harpoon File", },
-      { "<leader>h", function() local harpoon = require("harpoon") harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "Harpoon Quick Menu", },
-      { "<c-h>", function() require("harpoon"):list():select(1) end, desc = "Harpoon to File 1", },
-      { "<c-j>", function() require("harpoon"):list():select(2) end, desc = "Harpoon to File 2", },
-      { "<c-k>", function() require("harpoon"):list():select(3) end, desc = "Harpoon to File 3", },
-      { "<c-l>", function() require("harpoon"):list():select(4) end, desc = "Harpoon to File 4", },
-      { "<c-;>", function() require("harpoon"):list():select(5) end, desc = "Harpoon to File 5", },
-    },
   },
 }

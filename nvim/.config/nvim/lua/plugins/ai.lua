@@ -35,25 +35,8 @@ local function get_avante_vendors()
   }
 end
 
-local function create_codecompanion_adapter(model_name, overrides)
-  local base_config = {
-    env = {
-      url = "https://openrouter.ai/api",
-      api_key = "OPENROUTER_API_KEY",
-    },
-    schema = {
-      model = {
-        default = model_name,
-      },
-    },
-  }
-  merge_tables(base_config, overrides)
-  return function()
-    return require("codecompanion.adapters").extend("openai_compatible", base_config)
-  end
-end
-
 return {
+  ---@module 'avante'
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
@@ -132,27 +115,4 @@ return {
       },
     },
   },
-  -- {
-  --   "olimorris/codecompanion.nvim",
-  --   opts = {
-  --     strategies = {
-  --       chat = {
-  --         adapter = "gemini_2_5",
-  --       },
-  --     },
-  --     adapters = {
-  --       gemini_2_5 = create_codecompanion_adapter("google/gemini-2.5-pro-exp-03-25:free"),
-  --       deepseek_r1 = create_codecompanion_adapter("deepseek/deepseek-r1-zero:free"),
-  --     },
-  --   },
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-treesitter/nvim-treesitter",
-  --     "j-hui/fidget.nvim",
-  --     {
-  --       "MeanderingProgrammer/render-markdown.nvim",
-  --       ft = { "markdown", "codecompanion" },
-  --     },
-  --   },
-  -- },
 }

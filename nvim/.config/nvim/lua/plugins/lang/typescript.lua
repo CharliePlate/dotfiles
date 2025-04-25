@@ -103,6 +103,7 @@ return Lang.makeSpec({
     typescriptreact = { "prettierd" },
     javascriptreact = { "prettierd" },
   }),
+  Lang.addLspServer("svelte"),
   Lang.addDap("js-debug-adapter"),
   Lang.addTreesitterFiletypes({ "typescript", "javascript" }),
   -- Lang.addLinter("typescript", "tslint", tslint_setup),

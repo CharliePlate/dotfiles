@@ -1,7 +1,6 @@
 start-at-login = true
 
-enable-normalization-flatten-containers = false
-enable-normalization-opposite-orientation-for-nested-containers = false
+automatically-unhide-macos-hidden-apps = false
 
 gaps.inner.horizontal = 2
 gaps.inner.vertical = 2
@@ -20,7 +19,7 @@ alt-l = 'focus right'
 
 alt-shift-h = 'move-through left'
 alt-shift-j = 'move-through down'
-alt-shift-k= 'move-through up'
+alt-shift-k = 'move-through up'
 alt-shift-l = 'move-through right'
 
 alt-f = 'fullscreen'
@@ -79,7 +78,10 @@ e = 'secondary'
 
 [mode.service.binding]
 r = ['flatten-workspace-tree', 'layout h_tiles', 'mode main'] # reset layout
-f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+f = [
+  'layout floating tiling',
+  'mode main',
+] # Toggle between floating and tiling layout
 esc = ['reload-config', 'mode main']
 
 [mode.resize.binding]

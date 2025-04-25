@@ -29,6 +29,11 @@ require("lazy").setup({
     { import = "plugins" },
     { import = "plugins.lang" },
   },
+  dev = {
+    path = "~/.config/nvim/lua/dev",
+    patterns = { "charlieplate" },
+    fallback = false,
+  },
 })
 
 -- require("util.theme").setup()

@@ -173,7 +173,6 @@ return {
       -- Config
       local config = {
         options = {
-          -- Disable sections and component separators
           component_separators = "",
           section_separators = "",
           theme = {
@@ -189,17 +188,14 @@ return {
           },
         },
         sections = {
-          -- these are to remove the defaults
           lualine_a = {},
           lualine_b = {},
           lualine_y = {},
           lualine_z = {},
-          -- These will be filled later
           lualine_c = {},
           lualine_x = {},
         },
         inactive_sections = {
-          -- these are to remove the defaults
           lualine_a = {},
           lualine_b = {},
           lualine_y = {},
@@ -209,12 +205,10 @@ return {
         },
       }
 
-      -- Inserts a component in lualine_c at left section
       local function ins_left(component)
         table.insert(config.sections.lualine_c, component)
       end
 
-      -- Inserts a component in lualine_x at right section
       local function ins_right(component)
         table.insert(config.sections.lualine_x, component)
       end
@@ -228,12 +222,10 @@ return {
       })
 
       ins_left({
-        -- mode component
         function()
           return ""
         end,
         color = function()
-          -- auto change color according to neovims mode
           local mode_color = {
             n = colors.red,
             i = colors.green,
@@ -262,7 +254,6 @@ return {
       })
 
       ins_left({
-        -- filesize component
         "filesize",
         cond = conditions.buffer_not_empty,
       })
@@ -288,10 +279,9 @@ return {
         },
       })
 
-      -- Add components to right sections
       ins_right({
-        "o:encoding", -- option component same as &encoding in viml
-        fmt = string.upper, -- I'm not sure why it's upper case either ;)
+        "o:encoding",
+        fmt = string.upper,
         cond = conditions.hide_in_width,
         color = { fg = colors.green, gui = "bold" },
       })
@@ -299,7 +289,7 @@ return {
       ins_right({
         "fileformat",
         fmt = string.upper,
-        icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
+        icons_enabled = false,
         color = { fg = colors.green, gui = "bold" },
       })
 
@@ -319,60 +309,6 @@ return {
           removed = { fg = colors.red },
         },
         cond = conditions.hide_in_width,
-      })
-
-      local cc = require("lualine.component"):extend()
-
-      cc.processing = false
-      cc.spinner_index = 1
-
-      local spinner_symbols = {
-        "⠋",
-        "⠙",
-        "⠹",
-        "⠸",
-        "⠼",
-        "⠴",
-        "⠦",
-        "⠧",
-        "⠇",
-        "⠏",
-      }
-      local spinner_symbols_len = 10
-
-      -- Initializer
-      function cc:init(options)
-        cc.super.init(self, options)
-
-        local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
-
-        vim.api.nvim_create_autocmd({ "User" }, {
-          pattern = "CodeCompanionRequest*",
-          group = group,
-          callback = function(request)
-            if request.match == "CodeCompanionRequestStarted" then
-              self.processing = true
-            elseif request.match == "CodeCompanionRequestFinished" then
-              self.processing = false
-            end
-          end,
-        })
-      end
-
-      -- Function that runs every time statusline is updated
-      function cc:update_status()
-        if self.processing then
-          self.spinner_index = (self.spinner_index % spinner_symbols_len) + 1
-          return spinner_symbols[self.spinner_index]
-        else
-          return nil
-        end
-      end
-
-      ins_right({
-        cc,
-        cond = conditions.hide_in_width,
-        color = { fg = colors.cyan },
       })
 
       ins_right({
@@ -415,7 +351,9 @@ return {
           header = icon,
           center = {
             {
-              action = "Telescope find_files",
+              action = function()
+                Snacks.picker.files()
+              end,
               desc = " Find file",
               icon = " ",
               key = "f",
@@ -427,28 +365,28 @@ return {
               key = "n",
             },
             {
-              action = "Telescope oldfiles",
+              action = function()
+                Snacks.picker.recent()
+              end,
               desc = " Recent files",
               icon = " ",
               key = "r",
             },
             {
-              action = "Telescope live_grep",
+              action = function()
+                Snacks.picker.grep()
+              end,
               desc = " Find text",
               icon = " ",
               key = "g",
             },
             {
-              action = "require('telescope.builtin').find_files({cwd=vim.fn.stdpath('config'), file_ignore_patterns={'lua/dev'}})",
+              action = function()
+                Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
+              end,
               desc = " Config",
               icon = " ",
               key = "c",
-            },
-            {
-              action = 'lua require("persistence").load()',
-              desc = " Restore Session",
-              icon = " ",
-              key = "s",
             },
             {
               action = "Lazy",
@@ -473,20 +411,8 @@ return {
         },
       })
     end,
-    dependencies = {
-      {
-        "nvim-tree/nvim-web-devicons",
-        opts = {
-          override_by_extension = {
-            templ = {
-              icon = "󰅴",
-              color = "#81e043",
-              name = "Templ",
-            },
-          },
-        },
-      },
-    },
+    ---@module "snacks"
+    dependencies = { "folke/snacks.nvim" },
   },
   {
     "RRethy/vim-illuminate",

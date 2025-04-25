@@ -50,25 +50,6 @@ return Lang.makeSpec({
     end,
   },
   {
-    "edolphin-ydf/goimpl.nvim",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-    },
-    ft = { "go" },
-    config = function()
-      require("telescope").load_extension("goimpl")
-    end,
-    keys = {
-      {
-        "<leader>ci",
-        function()
-          require("telescope").extensions.goimpl.goimpl({})
-        end,
-        desc = "Go Implementations",
-      },
-    },
-  },
-  {
     "nvim-neotest/neotest",
     optional = true,
     dependencies = {

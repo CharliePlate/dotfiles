@@ -16,9 +16,13 @@ zcomet load romkatv/powerlevel10k
 zcomet load ohmyzsh plugins/nvm
 zcomet load jeffreytse/zsh-vi-mode
 zcomet load ohmyzsh plugins/gitfast
+zcomet load ohmyzsh plugins/direnv
 zcomet load zsh-users/zsh-syntax-highlighting
 zcomet load zsh-users/zsh-autosuggestions
 zcomet load zsh-users/zsh-history-substring-search
+
+export ZSH_DOTENV_PROMPT=false
+zcomet load ohmyzsh plugins/dotenv
 
 zcomet compinit
 
@@ -77,3 +81,4 @@ export TMS_CONFIG_FILE=$XDG_CONFIG_HOME/tms/config.toml
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 export PATH="$HOME/.jenv/shims:$PATH"
 jenv global 17
+

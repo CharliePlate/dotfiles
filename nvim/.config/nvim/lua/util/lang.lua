@@ -21,13 +21,19 @@ end
 
 ---@param formatter table<string, table<table<string>>> | table<string>
 ---@param install boolean?
+---@param config table? Expected format is {formatter: {...config object}}
 ---@return table
-M.addFormatter = function(formatter, install)
+M.addFormatter = function(formatter, install, config)
   return {
     {
       "stevearc/conform.nvim",
       opts = function(_, opts)
         opts.formatters_by_ft = vim.tbl_extend("force", opts.formatters_by_ft or {}, formatter)
+        if config ~= nil then
+          for k, v in pairs(config) do
+            opts.formatters[k] = v
+          end
+        end
       end,
     },
     {

@@ -38,6 +38,7 @@ return {
     },
     dependencies = {
       "rafamadriz/friendly-snippets",
+      { "charlieplate/blink-cmp-swaggo", dev = true },
     },
     event = "InsertEnter",
     ---@module 'blink.cmp'
@@ -69,12 +70,18 @@ return {
           auto_show_delay_ms = 200,
         },
         ghost_text = {
-          enabled = vim.g.ai_cmp,
+          enabled = true,
         },
       },
       sources = {
         compat = {},
         default = { "lsp", "path", "snippets", "buffer" },
+        -- providers = {
+        --   swaggo = {
+        --     name = "Swaggo",
+        --     module = "blink-cmp-swaggo",
+        --   },
+        -- },
       },
       cmdline = {
         enabled = true,
@@ -96,10 +103,7 @@ return {
         end
       end
 
-      -- Unset custom prop to pass blink.cmp validation
       opts.sources.compat = nil
-
-      -- check if we need to override symbol kinds
       for _, provider in pairs(opts.sources.providers or {}) do
         ---@cast provider blink.cmp.SourceProviderConfig|{kind?:string}
         if provider.kind then
@@ -130,125 +134,19 @@ return {
       require("blink.cmp").setup(opts)
     end,
   },
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   dependencies = {
-  --     "hrsh7th/cmp-nvim-lsp",
-  --     "hrsh7th/cmp-buffer",
-  --     "hrsh7th/cmp-path",
-  --     "hrsh7th/cmp-cmdline",
-  --     "L3MON4D3/LuaSnip",
-  --     "saadparwaiz1/cmp_luasnip",
-  --   },
-  --   event = { "InsertEnter", "CmdLineEnter" },
-  --   opts = function(_, opts)
-  --     local cmp = require("cmp")
-  --     return {
-  --       snippet = {
-  --         expand = function(args)
-  --           require("luasnip").lsp_expand(args.body)
-  --         end,
-  --       },
-  --       window = {
-  --         completion = cmp.config.window.bordered(),
-  --         documentation = cmp.config.window.bordered(),
-  --       },
-  --       sources = cmp.config.sources(fn.mergeArrays(opts.sources or {}, {
-  --         { name = "nvim_lsp", priority = 1000 },
-  --         { name = "luasnip", priority = 750 },
-  --         { name = "path", priority = 500 },
-  --         { name = "buffer", priority = 250 },
-  --       })),
-  --       mapping = cmp.mapping.preset.insert({
-  --         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-  --         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-  --         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-  --         ["<C-f>"] = cmp.mapping.scroll_docs(4),
-  --         ["<C-Space>"] = cmp.mapping.complete(),
-  --         ["<C-e>"] = cmp.mapping.abort(),
-  --         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-  --         ["<S-CR>"] = cmp.mapping.confirm({
-  --           behavior = cmp.ConfirmBehavior.Replace,
-  --           select = true,
-  --         }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-  --         ["<C-CR>"] = function(fallback)
-  --           cmp.abort()
-  --           fallback()
-  --         end,
-  --       }),
-  --       completion = {
-  --         completeopt = "menu,menuone,noinsert",
-  --       },
-  --       formatting = {
-  --         format = function(_, item)
-  --           local icons = require("util.icons").kinds
-  --           if icons[item.kind] then
-  --             item.kind = icons[item.kind] .. item.kind
-  --           end
-  --           return item
-  --         end,
-  --       },
-  --       experimental = {
-  --         ghost_text = {
-  --           hl_group = "CmpGhostText",
-  --         },
-  --       },
-  --     }
-  --   end,
-  --   config = function(_, opts)
-  --     vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
-  --     require("cmp").setup(opts)
-  --     local cmp = require("cmp")
-  --     ---@diagnostic disable-next-line: missing-fields
-  --     cmp.setup.cmdline({ "/", "?" }, {
-  --       mapping = cmp.mapping.preset.cmdline(),
-  --       sources = {
-  --         { name = "buffer" },
-  --       },
-  --     })
-  --     ---@diagnostic disable-next-line: missing-fields
-  --     cmp.setup.cmdline(":", {
-  --       mapping = cmp.mapping.preset.cmdline(),
-  --       sources = cmp.config.sources({
-  --         { name = "path" },
-  --       }, {
-  --         { name = "cmdline" },
-  --       }),
-  --     })
-  --   end,
-  -- },
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       focus = true,
     },
+    -- stylua: ignore
     keys = {
-      {
-        "<leader>xx",
-        "<cmd>Trouble diagnostics toggle<cr>",
-        desc = "Diagnostics (Trouble)",
-      },
-      {
-        "<leader>xX",
-        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-        desc = "Buffer Diagnostics (Trouble)",
-      },
-      {
-        "<leader>cs",
-        "<cmd>Trouble symbols toggle window.size.width=30 window.pos=right<cr>",
-        desc = "Symbols (Trouble)",
-      },
-      {
-        "<leader>xL",
-        "<cmd>Trouble loclist toggle<cr>",
-        desc = "Location List (Trouble)",
-      },
-      {
-        "<leader>xQ",
-        "<cmd>Trouble qflist toggle<cr>",
-        desc = "Quickfix List (Trouble)",
-      },
+      { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)", },
+      { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)", },
+      { "<leader>cs", "<cmd>Trouble symbols toggle window.size.width=30 window.pos=right<cr>", desc = "Symbols (Trouble)", },
+      { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)", },
+      { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)", },
     },
   },
 }

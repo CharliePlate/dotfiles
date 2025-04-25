@@ -4,6 +4,7 @@ return Lang.makeSpec({
   Lang.addFormatter({ c = { "clang-format" }, cpp = { "clang-format" } }),
   Lang.addTreesitterFiletypes({ "c", "cpp" }),
   Lang.addLspServer("clangd", false),
+  Lang.addLspServer("pbls"),
   Lang.addDap("cpptools"),
   {
     "mfussenegger/nvim-dap",

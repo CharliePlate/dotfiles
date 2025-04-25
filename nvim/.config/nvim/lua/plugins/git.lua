@@ -26,7 +26,7 @@ return {
           { "<leader>gr", ":Gitsigns reset_hunk<CR>", mode = "v", buffer = buffer, desc = "Reset Hunk" },
           { "<leader>gu", gs.undo_stage_hunk, buffer = buffer, desc = "Undo Stage Hunk" },
           { "<leader>gp", gs.preview_hunk, buffer = buffer, desc = "Preview Hunk" },
-          { "<leader>gl", function() gs.blame_line() end, buffer = buffer, desc = "Blame Line" },
+          { "<leader>gl", function() gs.blame_line({full = true}) end, buffer = buffer, desc = "Blame Line" },
           { "ih", ":<C-U>Gitsigns select_hunk<CR>", mode = "x", buffer = buffer, desc = "GitSigns Select Hunk" },
           { "ih", ":<C-U>Gitsigns select_hunk<CR>", mode = "o", buffer = buffer, desc = "GitSigns Select Hunk" },
         }
@@ -37,27 +37,11 @@ return {
   },
   {
     "sindrets/diffview.nvim",
+    cmd = { "DiffvewOpen" },
     keys = {
       { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File History" },
       { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diff" },
       { "<leader>gD", "<cmd>DiffviewClose<cr>", desc = "Close Diffview" },
     },
   },
-  -- {
-  --   "NeogitOrg/neogit",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "sindrets/diffview.nvim",
-  --     "nvim-telescope/telescope.nvim",
-  --   },
-  --   opts = {
-  --     integrations = {
-  --       telescope = true,
-  --       diffview = true,
-  --     },
-  --   },
-  --   keys = {
-  --     { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
-  --   },
-  -- },
 }

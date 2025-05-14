@@ -1,3 +1,5 @@
+session_sort_order = "LastAttached"
+
 [[search_dirs]]
 path = "/Users/charlieplate/graphite"
 depth = 10
@@ -7,5 +9,5 @@ path = "/Users/charlieplate/projects"
 depth = 2
 
 [[search_dirs]]
-path = "/Users/charlieplate/school"
+path = "/Users/charlieplate/gatech_omscs"
 depth = 2

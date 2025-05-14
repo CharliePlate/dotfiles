@@ -93,11 +93,6 @@ M.addLspServer = function(lsp, hints, dependencies)
           opts.inlayHints = opts.inlayHints or {}
           opts.inlayHints[lsp] = true
         end
-      end,
-    },
-    {
-      "williamboman/mason-lspconfig",
-      opts = function(_, opts)
         opts.ensure_installed = opts.ensure_installed or {}
         table.insert(opts.ensure_installed, lsp)
       end,

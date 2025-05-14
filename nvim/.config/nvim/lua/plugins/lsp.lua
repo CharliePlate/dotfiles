@@ -11,6 +11,7 @@ return {
     opts = {
       servers = {},
       inlayHints = {},
+      ensure_installed = {},
     },
     config = function(_, opts)
       local register_capability = vim.lsp.handlers["client/registerCapability"]
@@ -51,31 +52,36 @@ return {
       end)
 
       local mason = require("mason-lspconfig")
+      local function setup(server_name)
+        local server_opts = opts.servers[server_name] or {}
+        if opts.servers[server_name] and opts.servers[server_name].setup ~= nil then
+          opts.servers[server_name].setup(server_opts)
+        else
+          vim.lsp.config(server_name, server_opts)
+        end
 
-      mason.setup_handlers({
-        function(server_name)
-          local server_opts = opts.servers[server_name] or {}
+        if opts.servers[server_name] and opts.servers[server_name].autocmds ~= nil then
+          opts.servers[server_name].autocmds()
+        end
 
-          if opts.servers[server_name] and opts.servers[server_name].setup ~= nil then
-            opts.servers[server_name].setup(server_opts)
-          else
-            require("lspconfig")[server_name].setup(server_opts)
-          end
+        if opts.servers[server_name] and opts.servers[server_name].keys ~= nil then
+          fn.lspOnAttach(function(_, buffer)
+            local Keys = require("util.keys")
+            for _, key in ipairs(opts.servers[server_name].keys) do
+              key.buffer = buffer
+            end
+            Keys.addAndSet(opts.servers[server_name].keys)
+          end)
+        end
+      end
 
-          if opts.servers[server_name] and opts.servers[server_name].autocmds ~= nil then
-            opts.servers[server_name].autocmds()
-          end
+      for server_name, _ in pairs(opts.servers) do
+        setup(server_name)
+      end
 
-          if opts.servers[server_name] and opts.servers[server_name].keys ~= nil then
-            fn.lspOnAttach(function(_, buffer)
-              local Keys = require("util.keys")
-              for _, key in ipairs(opts.servers[server_name].keys) do
-                key.buffer = buffer
-              end
-              Keys.addAndSet(opts.servers[server_name].keys)
-            end)
-          end
-        end,
+      mason.setup({
+        automatic_enable = true,
+        ensure_installed = opts.ensure_installed,
       })
     end,
     keys = {
@@ -83,41 +89,6 @@ return {
       { "<leader>lI", "<cmd>LspInfo<cr>", "Lsp Info" },
       { "<leader>lR", "<cmd>LspRoot<cr>", "Lsp Root" },
     },
-  },
-  {
-    "williamboman/mason.nvim",
-    cmd = "Mason",
-    keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
-    build = ":MasonUpdate",
-    opts = {
-      ensure_installed = {},
-    },
-    config = function(_, opts)
-      require("mason").setup(opts)
-      local mr = require("mason-registry")
-      mr:on("package:install:success", function()
-        vim.defer_fn(function()
-          -- trigger FileType event to possibly load this newly installed LSP server
-          require("lazy.core.handler.event").trigger({
-            event = "FileType",
-            buf = vim.api.nvim_get_current_buf(),
-          })
-        end, 100)
-      end)
-      local function ensure_installed()
-        for _, tool in ipairs(opts.ensure_installed) do
-          local p = mr.get_package(tool)
-          if not p:is_installed() then
-            p:install()
-          end
-        end
-      end
-      if mr.refresh then
-        mr.refresh(ensure_installed)
-      else
-        ensure_installed()
-      end
-    end,
   },
   {
     "smjonas/inc-rename.nvim",

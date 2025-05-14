@@ -119,9 +119,7 @@ return Lang.makeSpec({
           executable = {
             command = "node",
             args = {
-              require("mason-registry").get_package("js-debug-adapter"):get_install_path()
-                .. "/js-debug/src/dapDebugServer.js",
-              "${port}",
+              vim.fn.expand("$MASON/bin/js-debug-adapter") .. "/js-debug/src/dapDebugServer.js" .. "${port}",
             },
           },
         }

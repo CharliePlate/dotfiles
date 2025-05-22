@@ -119,7 +119,8 @@ return Lang.makeSpec({
           executable = {
             command = "node",
             args = {
-              vim.fn.expand("$MASON/bin/js-debug-adapter") .. "/js-debug/src/dapDebugServer.js" .. "${port}",
+              vim.fn.expand("$MASON/packages/js-debug-adapter") .. "/js-debug/src/dapDebugServer.js",
+              "${port}",
             },
           },
         }

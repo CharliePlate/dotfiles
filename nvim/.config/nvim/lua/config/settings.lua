@@ -64,3 +64,5 @@ vim.filetype.add({
     templ = "templ",
   },
 })
+
+opt.winborder = "rounded"

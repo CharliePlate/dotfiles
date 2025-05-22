@@ -44,4 +44,20 @@ return {
       { "<leader>gD", "<cmd>DiffviewClose<cr>", desc = "Close Diffview" },
     },
   },
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "folke/snacks.nvim",
+    },
+    opts = {
+      integrations = {
+        snacks = true,
+      },
+    },
+    keys = {
+      { "<leader>gn", "<cmd>Neogit<cr>", desc = "Neogit" },
+    },
+  },
 }

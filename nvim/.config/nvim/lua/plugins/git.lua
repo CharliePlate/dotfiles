@@ -57,7 +57,7 @@ return {
       },
     },
     keys = {
-      { "<leader>gn", "<cmd>Neogit<cr>", desc = "Neogit" },
+      { "<leader>gm", "<cmd>Neogit<cr>", desc = "Neogit" },
     },
   },
 }

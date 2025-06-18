@@ -1,6 +1,9 @@
 local fn = require("util.fn")
 
 return {
+  ---@module "lspconfig"
+  ---@module "mason"
+  ---@module "mason-lspconfig"
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -91,6 +94,7 @@ return {
     },
   },
   {
+    ---@module "inc_rename"
     "smjonas/inc-rename.nvim",
     dependencies = { "stevearc/dressing.nvim" },
     opts = {

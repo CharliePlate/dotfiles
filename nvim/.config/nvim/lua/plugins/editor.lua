@@ -55,36 +55,60 @@ return {
     end,
   },
   {
-    "akinsho/toggleterm.nvim",
-    version = "*",
-    -- stylua: ignore
-    keys = {
-      { "<c-\\>", function() require("toggleterm").toggle() end, desc = "Toggle Terminal", },
-      { "<leader>gg", function() require("util.git").lazy_git_toggle() end, desc = "LazyGit", },
-    },
+    "nvzone/floaterm",
+    dependencies = "nvzone/volt",
     opts = {
-      size = 20,
-      open_mapping = [[<c-\>]],
-      hide_numbers = true,
-      shade_filetypes = {},
-      shade_terminals = true,
-      shading_factor = 2,
-      start_in_insert = true,
-      insert_mappings = true,
-      persist_size = true,
-      direction = "float",
-      close_on_exit = true,
-      shell = vim.o.shell,
-      float_opts = {
-        border = "curved",
-        winblend = 0,
-        highlights = {
-          border = "Normal",
-          background = "Normal",
-        },
+      border = false,
+      size = { h = 80, w = 80 },
+      terminals = {
+        { name = "terminal" },
+        { name = "lazygit", cmd = "lazygit" },
+      },
+      mappings = {
+        term = function(buf)
+          vim.keymap.set({ "n", "t" }, "<c-\\>", function()
+            require("floaterm").toggle()
+          end, { buffer = buf })
+        end,
       },
     },
+    cmd = "FloatermToggle",
+    keys = {
+      { "<c-\\>", "<cmd>FloatermToggle<cr>", desc = "Toggle Terminal" },
+      { "<leader>gg", "<cmd>FloatermNew lazygit<cr>", desc = "LazyGit" },
+    },
   },
+  -- {
+  --   "akinsho/toggleterm.nvim",
+  --   version = "*",
+  --   -- stylua: ignore
+  --   keys = {
+  --     { "<c-\\>", function() require("toggleterm").toggle() end, desc = "Toggle Terminal", },
+  --     { "<leader>gg", function() require("util.git").lazy_git_toggle() end, desc = "LazyGit", },
+  --   },
+  --   opts = {
+  --     size = 20,
+  --     open_mapping = [[<c-\>]],
+  --     hide_numbers = true,
+  --     shade_filetypes = {},
+  --     shade_terminals = true,
+  --     shading_factor = 2,
+  --     start_in_insert = true,
+  --     insert_mappings = true,
+  --     persist_size = true,
+  --     direction = "float",
+  --     close_on_exit = true,
+  --     shell = vim.o.shell,
+  --     float_opts = {
+  --       border = "curved",
+  --       winblend = 0,
+  --       highlights = {
+  --         border = "Normal",
+  --         background = "Normal",
+  --       },
+  --     },
+  --   },
+  -- },
   {
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",

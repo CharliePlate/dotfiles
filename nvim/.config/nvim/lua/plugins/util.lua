@@ -103,32 +103,4 @@ return {
       },
     },
   },
-  ---@module "doing"
-  {
-    "Hashino/doing.nvim",
-    opts = {
-      store = {
-        file_name = function()
-          return vim.fn.stdpath("state") .. "/doing/" .. vim.fn.expand("%:t") .. ".txt"
-        end,
-        auto_create_file = false,
-      },
-    },
-    keys = {
-      --stylua: ignore
-      { "<leader>le", function() require("doing.api").edit() end, desc = "Edit doing tasks" },
-      --stylua: ignore
-      { "<leader>lc", function() require("doing.api").done() end, desc = "Complete current task" },
-      --stylua: ignore
-      { "<leader>ls", function() require("doing.api").status() end, desc = "What am I doing?" },
-      {
-        "<leader>ln",
-        function()
-          vim.ui.input({ prompt = "What are you doing" }, function(input)
-            require("doing.api").add(input, false)
-          end)
-        end,
-      },
-    },
-  },
 }

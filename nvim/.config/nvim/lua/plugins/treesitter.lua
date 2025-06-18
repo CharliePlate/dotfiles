@@ -2,15 +2,17 @@ local fn = require("util.fn")
 
 return {
   {
+    ---@module "ts_context_commentstring"
     "JoosepAlviste/nvim-ts-context-commentstring",
     lazy = true,
+    ---@type ts_context_commentstring.Config
     opts = {
       enable_autocmd = false,
     },
   },
   {
+    ---@module "treesitter-context"
     "nvim-treesitter/nvim-treesitter-context",
-    enabled = true,
     opts = {
       enable = true,
       max_lines = 5,
@@ -25,6 +27,7 @@ return {
     },
   },
   {
+    ---@module "mini.ai"
     "echasnovski/mini.ai",
     event = "VeryLazy",
     opts = function()
@@ -168,6 +171,7 @@ return {
     end,
   },
   {
+    ---@module "nvim-treesitter"
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     event = { "LazyFile", "VeryLazy" },

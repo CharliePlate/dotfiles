@@ -1,5 +1,6 @@
 return {
   {
+    ---@module "gitsigns"
     "lewis6991/gitsigns.nvim",
     event = "LazyFile",
     opts = {
@@ -36,6 +37,7 @@ return {
     },
   },
   {
+    ---@module "diffview"
     "sindrets/diffview.nvim",
     cmd = { "DiffvewOpen" },
     keys = {
@@ -45,6 +47,7 @@ return {
     },
   },
   {
+    ---@module "neogit"
     "NeogitOrg/neogit",
     dependencies = {
       "nvim-lua/plenary.nvim",

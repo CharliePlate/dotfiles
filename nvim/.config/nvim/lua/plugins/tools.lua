@@ -1,6 +1,8 @@
 return {
   {
+    ---@module "conform"
     "stevearc/conform.nvim",
+    ---@type conform.setupOpts
     opts = {
       formatters_by_ft = {},
       formatters = {},
@@ -14,6 +16,7 @@ return {
     },
   },
   {
+    ---@module "lint"
     "mfussenegger/nvim-lint",
     opts = {
       linters_by_ft = {},

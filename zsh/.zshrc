@@ -16,13 +16,10 @@ zcomet load romkatv/powerlevel10k
 zcomet load ohmyzsh plugins/nvm
 zcomet load jeffreytse/zsh-vi-mode
 zcomet load ohmyzsh plugins/gitfast
-zcomet load ohmyzsh plugins/direnv
+# zcomet load ohmyzsh plugins/direnv
 zcomet load zsh-users/zsh-syntax-highlighting
 zcomet load zsh-users/zsh-autosuggestions
 zcomet load zsh-users/zsh-history-substring-search
-
-export ZSH_DOTENV_PROMPT=false
-zcomet load ohmyzsh plugins/dotenv
 
 zcomet compinit
 
@@ -68,7 +65,6 @@ export LOG_LEVEL="trace"
 # export EXTERNAL_INTERFACE_POLLING_ENABLED=true
 
 #node stuff
-nvm use --silent 20
 export PATH="$HOME/.nvm/versions/node/v20.9.0/lib/node_modules/:$PATH"
 export PATH="$(yarn global bin):$PATH"
 
@@ -76,9 +72,14 @@ export PATH="$(yarn global bin):$PATH"
 export NVIM_WORK_DIR="$HOME/graphite/graphite"
 export NVM_DIR="$HOME/.config/nvm"
 
+nvm use --silent 22
+
 export TMS_CONFIG_FILE=$XDG_CONFIG_HOME/tms/config.toml
 
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 export PATH="$HOME/.jenv/shims:$PATH"
 jenv global 17
 
+
+# opencode
+export PATH=/Users/charlieplate/.opencode/bin:$PATH

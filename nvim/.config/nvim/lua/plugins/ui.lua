@@ -1,19 +1,53 @@
 return {
+  -- {
+  --   "rose-pine/neovim",
+  --   name = "rose-pine",
+  --   priority = 1000,
+  --   opts = {
+  --     variant = "moon",
+  --     styles = {
+  --       bold = true,
+  --       italic = false,
+  --       -- transparency = true,
+  --     },
+  --   },
+  --   config = function(_, opts)
+  --     require("rose-pine").setup(opts)
+  --     vim.cmd("colorscheme rose-pine")
+  --   end,
+  -- },
+  --
+  -- {
+  --   "webhooked/kanso.nvim",
+  --   priority = 1000,
+  --   opts = {
+  --     theme = "zen",
+  --   },
+  --   config = function(_, opts)
+  --     require("kanso").setup(opts)
+  --     vim.cmd("colorscheme kanso")
+  --   end,
+  -- },
+  -- {
+  --   "thesimonho/kanagawa-paper.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   init = function()
+  --     vim.cmd.colorscheme("kanagawa-paper-ink")
+  --   end,
+  --   opts = { ... },
+  -- },
+  --
   {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    priority = 1000,
-    opts = {
-      variant = "moon",
-      styles = {
-        bold = true,
-        italic = false,
-        -- transparency = true,
-      },
-    },
-    config = function(_, opts)
-      require("rose-pine").setup(opts)
-      vim.cmd("colorscheme rose-pine")
+    "vague2k/vague.nvim",
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other plugins
+    config = function()
+      -- NOTE: you do not need to call setup if you don't want to.
+      require("vague").setup({
+        -- optional configuration here
+      })
+      vim.cmd("colorscheme vague")
     end,
   },
   {
@@ -52,7 +86,7 @@ return {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
+          -- ["cmp.entry.get_documentation"] = true,
         },
       },
       routes = {

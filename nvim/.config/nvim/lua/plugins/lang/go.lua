@@ -1,10 +1,10 @@
 local Lang = require("util.lang")
 
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = "*.templ",
-  command = 'silent! !PATH="$PATH:$(go env GOPATH)/bin" templ fmt <afile> >/dev/null 2>&1',
-  group = vim.api.nvim_create_augroup("TemplFmt", { clear = true }),
-})
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--   pattern = "*.templ",
+--   command = 'silent! !PATH="$PATH:$(go env GOPATH)/bin" templ fmt <afile> >/dev/null 2>&1',
+--   group = vim.api.nvim_create_augroup("TemplFmt", { clear = true }),
+-- })
 
 vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*.go",
@@ -21,8 +21,8 @@ return Lang.makeSpec({
     "gosum",
   }),
   Lang.addLspServer("gopls", false),
-  Lang.addLspServer("templ"),
-  Lang.addLspServer("golangci_lint_ls"),
+  -- Lang.addLspServer("templ"),
+  -- Lang.addLspServer("golangci_lint_ls"),
   Lang.addDap("delve"),
   {
     "leoluz/nvim-dap-go",

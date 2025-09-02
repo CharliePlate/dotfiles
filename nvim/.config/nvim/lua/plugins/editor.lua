@@ -256,8 +256,30 @@ return {
       { "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
       { "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
       { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
-      { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+      { "<leader>ss", function() Snacks.picker.lsp_symbols({layout = "vscode"}) end, desc = "LSP Symbols" },
       { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+    },
+  },
+  {
+    "MagicDuck/grug-far.nvim",
+    opts = { headerMaxWidth = 80 },
+    cmd = "GrugFar",
+    keys = {
+      {
+        "<leader>sr",
+        function()
+          local grug = require("grug-far")
+          local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+          grug.open({
+            transient = true,
+            prefills = {
+              filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+            },
+          })
+        end,
+        mode = { "n", "v" },
+        desc = "Search and Replace",
+      },
     },
   },
 }

@@ -16,7 +16,7 @@ M.makeLspKeys = function(client, buffer)
   local Opts = fn.opts("nvim-lspconfig")
   local server_keys = Opts.servers[client.name] and Opts.servers[client.name].keys or {}
   local keymaps = vim.list_extend(M.keys, server_keys)
-  Keys.addAndSet(keymaps)
+  Keys.addAndSet(keymaps, buffer)
 end
 
 return M

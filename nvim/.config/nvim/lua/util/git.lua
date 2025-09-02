@@ -3,11 +3,7 @@ local Root = require("util.root")
 local M = {}
 
 M.lazygit_cmd = function()
-  if not Root.tracked_by_yadm() then
-    return "lazygit"
-  else
-    return "lazygit -ucd ~/.local/share/yadm/lazygit -w ~ -g ~/.local/share/yadm/repo.git"
-  end
+  return "lazygit"
 end
 
 M.lazy_git_toggle = function()

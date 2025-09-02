@@ -1,102 +1,46 @@
 local Dap = require("util.dap")
 local Lang = require("util.lang")
 
---[[ ---@type function
----@return lint.Linter
-local tslint_setup = function()
-  return {
-    cmd = function()
-      local local_binary = vim.fn.fnamemodify("./node_modules/.bin/" .. "tslint", ":p")
-      return vim.loop.fs_stat(local_binary) and local_binary or "tslint"
-    end,
-    name = "tslint",
-    cwd = vim.fn.fnamemodify(
-      vim.fs.find("tslint.json", { path = vim.api.nvim_buf_get_name(0), upward = true })[1],
-      ":h"
-    ),
-    ignore_exitcode = true,
-    args = {
-      "-c",
-      "tslint.json",
-      "-t",
-      "json",
-      "-e",
-      "node_modules",
-    },
-    parser = function(output, bufnr)
-      local trimmed_output = vim.trim(output)
-      if trimmed_output == "" then
-        return {}
-      end
-      local decode_opts = { luanil = { object = true, array = true } }
-      local ok, data = pcall(vim.json.decode, output, decode_opts)
-      if not ok then
-        return {
-          {
-            bufnr = bufnr,
-            lnum = 0,
-            col = 0,
-            message = "Could not parse linter output due to: " .. data .. "\noutput: " .. output,
-          },
-        }
-      end
-
-      local diag = {}
-      for _, issue in ipairs(data) do
-        local diagEntry = {}
-        diagEntry.lnum = issue.startPosition.line
-        diagEntry.col = issue.startPosition.character
-        diagEntry.message = issue.failure
-        diagEntry.code = issue.ruleName
-        diagEntry.severity = issue.ruleSeverity == "ERROR" and vim.lsp.protocol.DiagnosticSeverity.Error
-          or vim.lsp.protocol.DiagnosticSeverity.Warning
-        diagEntry.end_lnum = issue.endPosition.line
-        diagEntry.end_col = issue.endPosition.character
-        diagEntry.source = "tslint"
-
-        table.insert(diag, diagEntry)
-      end
-
-      return diag
-    end,
-    stdin = false,
-    append_fname = true,
-    stream = "stdout",
-  }
-end ]]
-
 return Lang.makeSpec({
-  -- Lang.addLspServer("tsserver"),
-  {
-    "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    event = "BufEnter",
-    ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-    opts = {
-      settings = {
-        tsserver_max_memory = "auto",
-        tsserver_plugins = { "@vue/typescript-plugin" },
-        tsserver_file_preferences = {
-          "javascript",
-          "javascriptreact",
-          "javascript.jsx",
-          "typescript",
-          "typescriptreact",
-          "typescript.tsx",
-          "vue",
-        },
-      },
-      filetypes = {
-        "javascript",
-        "javascriptreact",
-        "javascript.jsx",
-        "typescript",
-        "typescriptreact",
-        "typescript.tsx",
-        "vue",
-      },
-    },
-  },
+  Lang.addLspServer("vtsls"),
+  -- {
+  --   "yioneko/nvim-vtsls",
+  --   ft = {
+  --     "typescript",
+  --     "typescriptreact",
+  --     "javascript",
+  --     "javascriptreact",
+  --   },
+  -- },
+  -- {
+  --   "pmizio/typescript-tools.nvim",
+  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  --   ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+  --   opts = {
+  --     settings = {
+  --       tsserver_max_memory = "auto",
+  --       tsserver_plugins = { "@vue/typescript-plugin" },
+  --       tsserver_file_preferences = {
+  --         "javascript",
+  --         "javascriptreact",
+  --         "javascript.jsx",
+  --         "typescript",
+  --         "typescriptreact",
+  --         "typescript.tsx",
+  --         "vue",
+  --       },
+  --     },
+  --     filetypes = {
+  --       "javascript",
+  --       "javascriptreact",
+  --       "javascript.jsx",
+  --       "typescript",
+  --       "typescriptreact",
+  --       "typescript.tsx",
+  --       "vue",
+  --     },
+  --   },
+  -- },
   Lang.addFormatter({
     typescript = { "prettierd" },
     javascript = { "prettierd" },
@@ -212,8 +156,8 @@ return Lang.makeSpec({
       }
     end,
   },
-  -- {
-  --   dependencies = { "neovim/nvim-lspconfig" },
-  --   dir = vim.fn.stdpath("config") .. "/lua/dev/ts-pretty-errors",
-  -- },
+  {
+    "dmmulroy/ts-error-translator.nvim",
+    opts = {},
+  },
 })

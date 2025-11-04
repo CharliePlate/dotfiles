@@ -3,15 +3,15 @@ local Lang = require("util.lang")
 
 return Lang.makeSpec({
   Lang.addLspServer("vtsls"),
-  -- {
-  --   "yioneko/nvim-vtsls",
-  --   ft = {
-  --     "typescript",
-  --     "typescriptreact",
-  --     "javascript",
-  --     "javascriptreact",
-  --   },
-  -- },
+  {
+    "yioneko/nvim-vtsls",
+    ft = {
+      "typescript",
+      "typescriptreact",
+      "javascript",
+      "javascriptreact",
+    },
+  },
   -- {
   --   "pmizio/typescript-tools.nvim",
   --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },

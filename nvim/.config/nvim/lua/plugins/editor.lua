@@ -55,25 +55,11 @@ return {
     end,
   },
   -- {
-  --   "nvzone/floaterm",
-  --   dependencies = "nvzone/volt",
+  --   "snacks.nvim",
   --   opts = {
-  --     border = false,
-  --     size = { h = 80, w = 80 },
-  --     terminals = {
-  --       { name = "terminal" },
-  --     },
-  --     mappings = {
-  --       term = function(buf)
-  --         vim.keymap.set({ "n", "t" }, "<c-\\>", function()
-  --           require("floaterm").toggle()
-  --         end, { buffer = buf })
-  --       end,
-  --     },
-  --   },
-  --   cmd = "FloatermToggle",
-  --   keys = {
-  --     { "<c-\\>", "<cmd>FloatermToggle<cr>", desc = "Toggle Terminal" },
+  --     bigfile = { enabled = true },
+  --     quickfile = { enabled = true },
+  --     terminal = { enabled = true },
   --   },
   -- },
   {

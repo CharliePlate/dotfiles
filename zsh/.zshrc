@@ -16,7 +16,6 @@ zcomet load romkatv/powerlevel10k
 zcomet load ohmyzsh plugins/nvm
 zcomet load jeffreytse/zsh-vi-mode
 zcomet load ohmyzsh plugins/gitfast
-zcomet load ohmyzsh plugins/direnv
 zcomet load zsh-users/zsh-syntax-highlighting
 zcomet load zsh-users/zsh-autosuggestions
 zcomet load zsh-users/zsh-history-substring-search
@@ -31,6 +30,13 @@ bindkey "^[[B" history-substring-search-down
 
 eval "$(zoxide init zsh)"
 
+HISTFILE=$HOME/.zsh_history  # Location of the history file
+HISTSIZE=100000              # Maximum lines in a session's memory
+SAVEHIST=100000              # Maximum lines saved to the history file
+setopt SHARE_HISTORY         # Share history between all sessions
+setopt EXTENDED_HISTORY      # Write the history file in the ':start:elapsed;command' format with timestamps
+setopt INC_APPEND_HISTORY    # Append new history lines to the $HISTFILE incrementally
+
 # Theme Stuff
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -43,7 +49,7 @@ export PATH=$HOME/Library/Python/3.9/bin:$PATH
 export EDITOR='nvim'
 export XDG_CONFIG_HOME=$HOME/.config
 export TERM=xterm-256color
-source ~/.zshrc_private
+# source ~/.zshrc_private
 source <(fzf --zsh)
 
 alias zshrc="nvim ~/.zshrc"
@@ -51,6 +57,9 @@ alias szshrc="source ~/.zshrc"
 alias ebs-ssh="ssh -L 1521:localhost:1521  opc@ebsoci.projectgraphite.com"
 alias ngp=". ngp"
 alias ls="eza"
+alias python="python3"
+alias pip="pip3"
+alias vim=nvim
 
 
 [[ $TMUX ]] && alias fzf=fzf --tmux
@@ -59,26 +68,18 @@ alias ly='lazygit -ucd ~/.local/share/yadm/lazygit -w ~ -g ~/.local/share/yadm/r
 
 export EDITOR=nvim
 
-#GRAPHITE STUFF
-export G_AUTO_WARM_UP=false
-export GOOGLE_APPLICATION_CREDENTIALS="$HOME/graphite/graphite/dev-env/savvy-eye-219502-ff128deb3183.json"
-export JWT_TTL=1440
-export LOG_LEVEL="trace"
-# export SENDGRID_DEV_TO="charlie+garbage@graphiteconnect.com"
-# export EXTERNAL_INTERFACE_POLLING_ENABLED=true
-
 #node stuff
 nvm use --silent 20
 export PATH="$HOME/.nvm/versions/node/v20.9.0/lib/node_modules/:$PATH"
 export PATH="$(yarn global bin):$PATH"
 
 # nvim
-export NVIM_WORK_DIR="$HOME/graphite/graphite"
 export NVM_DIR="$HOME/.config/nvm"
 
 export TMS_CONFIG_FILE=$XDG_CONFIG_HOME/tms/config.toml
 
-if which jenv > /dev/null; then eval "$(jenv init -)"; fi
-export PATH="$HOME/.jenv/shims:$PATH"
-jenv global 17
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 

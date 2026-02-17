@@ -108,11 +108,11 @@
   (setq copilot-enable-predicates nil)
   (setq copilot-indent-offset-warning-disable t)
 
-  (map! :i "jj" #'copilot-complete)
+  (map! :i "C-j" #'copilot-complete)
 
-  (define-key copilot-completion-map (kbd "j l") #'copilot-accept-completion)
-  (define-key copilot-completion-map (kbd "j n") #'copilot-next-completion)
-  (define-key copilot-completion-map (kbd "j p") #'copilot-previous-completion)
+  (define-key copilot-completion-map (kbd "C-l") #'copilot-accept-completion)
+  (define-key copilot-completion-map (kbd "C-n") #'copilot-next-completion)
+  (define-key copilot-completion-map (kbd "C-p") #'copilot-previous-completion)
   (define-key copilot-completion-map (kbd "C-g") #'copilot-clear-overlay))
 
 (add-hook! '(prog-mode-hook
@@ -121,4 +121,7 @@
            #'copilot-mode)
 
 (after! projectile
-  (setq projectile-project-search-path '(("~/projects" . 2))))
+  (setq projectile-project-search-path '(
+                                         ("~/lscg" . 2)
+                                         ("~/underdog" . 2)
+                                         )))

@@ -46,6 +46,7 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.local/share/bob/nvim-bin:$PATH
 export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/Library/Python/3.9/bin:$PATH
+export PATH=$HOME/.config/emacs/bin:$PATH
 export EDITOR='nvim'
 export XDG_CONFIG_HOME=$HOME/.config
 export TERM=xterm-256color

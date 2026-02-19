@@ -124,4 +124,5 @@
   (setq projectile-project-search-path '(
                                          ("~/lscg" . 2)
                                          ("~/underdog" . 2)
+                                         ("~/projects" . 2)
                                          )))

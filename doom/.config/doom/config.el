@@ -128,3 +128,22 @@
                                          ("~/underdog" . 2)
                                          ("~/projects" . 2)
                                          )))
+
+(use-package! vterm-toggle
+  :after vterm
+  :commands (vterm-toggle vterm-toggle-cd)
+  :config
+  (setq vterm-toggle-fullscreen-p t
+        vterm-toggle-hide-method 'reset-window-configration))
+
+(autoload 'vterm-toggle "vterm-toggle" nil t)
+(global-set-key (kbd "C-\\") #'vterm-toggle)
+
+(after! evil
+  (define-key evil-normal-state-map (kbd "C-\\") #'vterm-toggle)
+  (define-key evil-insert-state-map (kbd "C-\\") #'vterm-toggle)
+  (define-key evil-visual-state-map (kbd "C-\\") #'vterm-toggle))
+
+(after! vterm
+  (add-to-list 'vterm-keymap-exceptions "C-\\")
+  (define-key vterm-mode-map (kbd "C-\\") #'vterm-toggle))

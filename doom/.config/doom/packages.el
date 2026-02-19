@@ -58,4 +58,5 @@
            :repo "copilot-emacs/copilot.el"
            :files ("*.el")))
 
-(package! vterm-toggle)
+(package! vterm-toggle
+  :recipe (:host github :repo "jixiuf/vterm-toggle"))

@@ -15,6 +15,8 @@
               standard-indent 2      ; shiftwidth
               evil-shift-width 2)    ; shiftwidth for evil's < and > operators
 
+(setq scroll-margin 8)
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
@@ -108,12 +110,12 @@
   (setq copilot-enable-predicates nil)
   (setq copilot-indent-offset-warning-disable t)
 
-  (map! :i "C-j" #'copilot-complete)
+  (map! :i "C-c c" #'copilot-complete)
 
-  (define-key copilot-completion-map (kbd "C-l") #'copilot-accept-completion)
+  (define-key copilot-completion-map (kbd "<tab>") #'copilot-accept-completion)
   (define-key copilot-completion-map (kbd "C-n") #'copilot-next-completion)
   (define-key copilot-completion-map (kbd "C-p") #'copilot-previous-completion)
-  (define-key copilot-completion-map (kbd "C-g") #'copilot-clear-overlay))
+  (define-key copilot-completion-map (kbd "C-k") #'copilot-clear-overlay))
 
 (add-hook! '(prog-mode-hook
              conf-mode-hook

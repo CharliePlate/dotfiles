@@ -1,19 +1,10 @@
 return {
   {
-    "rose-pine/neovim",
-    name = "rose-pine",
+    "doom-rouge",
+    dir = vim.fn.stdpath("config") .. "/colors",
     priority = 1000,
-    opts = {
-      variant = "moon",
-      styles = {
-        bold = true,
-        italic = false,
-        -- transparency = true,
-      },
-    },
-    config = function(_, opts)
-      require("rose-pine").setup(opts)
-      vim.cmd("colorscheme rose-pine")
+    config = function()
+      vim.cmd("colorscheme doom-rouge")
     end,
   },
   {
@@ -117,17 +108,18 @@ return {
       local lualine = require("lualine")
 
       local colors = {
-        bg = "#202328",
-        fg = "#bbc2cf",
-        yellow = "#ECBE7B",
-        cyan = "#008080",
-        darkblue = "#081633",
-        green = "#98be65",
-        orange = "#FF8800",
-        violet = "#a9a1e1",
-        magenta = "#c678dd",
-        blue = "#51afef",
-        red = "#ec5f67",
+        bg = "#101828",
+        fg = "#FAFFF6",
+        yellow = "#F7E3AF",
+        cyan = "#88C0D0",
+        darkblue = "#1E6378",
+        green = "#A3B09A",
+        orange = "#eabe9a",
+        violet = "#5D80AE",
+        magenta = "#b18bb1",
+        blue = "#6e94b9",
+        red = "#BF7471",
+        salmon = "#C9A59A",
       }
 
       local conditions = {

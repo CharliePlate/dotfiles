@@ -15,7 +15,7 @@ return {
     ---@type LazyKeysSpec[]
     keys = {
       -- Lazygit
-      { "<leader>gg", function() require("snacks").lazygit.open() end, desc = "Open Lazygit" },
+      -- { "<leader>gg", function() require("snacks").lazygit.open() end, desc = "Open Lazygit" },
 
       -- Picker
       -- Top Pickers & Explorer

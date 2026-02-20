@@ -57,3 +57,7 @@
   :recipe (:host github
            :repo "copilot-emacs/copilot.el"
            :files ("*.el")))
+
+(package! flash
+  :recipe (:host github :repo "Prgebish/flash"
+           :files ("*.el")))

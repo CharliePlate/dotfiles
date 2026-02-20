@@ -3,3 +3,11 @@ session_sort_order = "LastAttached"
 [[search_dirs]]
 path = "/Users/charlieplate/projects"
 depth = 10
+
+[[search_dirs]]
+path = "/Users/charlieplate/lscg"
+depth = 10
+
+[[search_dirs]]
+path = "/Users/charlieplate/underdog"
+depth = 10

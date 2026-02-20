@@ -47,6 +47,7 @@ export PATH=$HOME/.local/share/bob/nvim-bin:$PATH
 export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/Library/Python/3.9/bin:$PATH
 export PATH=$HOME/.config/emacs/bin:$PATH
+export PATH=$HOME/.local/share/nvim/mason/bin:$PATH
 export EDITOR='nvim'
 export XDG_CONFIG_HOME=$HOME/.config
 export TERM=xterm-256color
@@ -69,10 +70,10 @@ alias ly='lazygit -ucd ~/.local/share/yadm/lazygit -w ~ -g ~/.local/share/yadm/r
 
 export EDITOR=nvim
 
-#node stuff
-nvm use --silent 20
-export PATH="$HOME/.nvm/versions/node/v20.9.0/lib/node_modules/:$PATH"
-export PATH="$(yarn global bin):$PATH"
+# #node stuff
+# nvm use --silent 20
+# export PATH="$HOME/.nvm/versions/node/v20.9.0/lib/node_modules/:$PATH"
+# export PATH="$(yarn global bin):$PATH"
 
 # nvim
 export NVM_DIR="$HOME/.config/nvm"
@@ -83,4 +84,4 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-
+alias :q='read -p "Are you sure you want to exit? (y/n) " answer; if [[ $answer == [Yy] ]]; then exit; fi'

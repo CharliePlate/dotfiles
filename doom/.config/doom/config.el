@@ -139,7 +139,8 @@
                                          ("~/lscg" . 2)
                                          ("~/underdog" . 2)
                                          ("~/projects" . 2)
-                                         )))
+                                         ))
+  (projectile-add-known-project "~/.config/doom/"))
 
 (load! "+terminal")
 

@@ -58,6 +58,18 @@ return {
     },
   },
   {
+    "esmuellert/codediff.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    cmd = "CodeDiff",
+    -- stylua: ignore
+    keys = {
+      { "<leader>gd", "<cmd>CodeDiff<cr>", desc = "Git Diff (CodeDiff)" },
+      { "<leader>gD", "<cmd>CodeDiff HEAD~1<cr>", desc = "Diff Against Last Commit" },
+      { "<leader>gh", "<cmd>CodeDiff history<cr>", desc = "Git History (CodeDiff)" },
+    },
+    opts = {},
+  },
+  {
     "NeogitOrg/neogit",
     lazy = true,
     dependencies = {

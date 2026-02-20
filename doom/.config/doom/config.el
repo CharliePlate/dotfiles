@@ -134,7 +134,7 @@
            #'copilot-mode)
 
 (after! projectile
-  (setq projectile-track-known-projects nil)
+  (setq projectile-track-known-projects-automatically nil)
   (setq projectile-project-search-path '(
                                          ("~/lscg" . 2)
                                          ("~/underdog" . 2)

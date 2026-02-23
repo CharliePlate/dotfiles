@@ -37,25 +37,15 @@ return {
     },
   },
   {
-    "pwntester/octo.nvim",
-    cmd = "Octo",
-    opts = {
-      picker = "snacks",
-      enable_builtin = true,
-    },
-    -- stylua: ignore
-    keys = {
-      { "<leader>oi", "<CMD>Octo issue list<CR>", desc = "List GitHub Issues", },
-      { "<leader>op", "<CMD>Octo pr list<CR>", desc = "List GitHub PullRequests", },
-      { "<leader>od", "<CMD>Octo discussion list<CR>", desc = "List GitHub Discussions", },
-      { "<leader>on", "<CMD>Octo notification list<CR>", desc = "List GitHub Notifications", },
-      { "<leader>os", function() require("octo.utils").create_base_search_command({ include_current_repo = true }) end, desc = "Search GitHub", },
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "folke/snacks.nvim",
-      "nvim-tree/nvim-web-devicons",
-    },
+    "folke/snacks.nvim",
+    opts = {},
+  -- stylua: ignore
+  keys = {
+    { "<leader>oi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (open)" },
+    { "<leader>oI", function() Snacks.picker.gh_issue({ state = "all" }) end, desc = "GitHub Issues (all)" },
+    { "<leader>op", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
+    { "<leader>oP", function() Snacks.picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (all)" },
+  },
   },
   {
     "esmuellert/codediff.nvim",

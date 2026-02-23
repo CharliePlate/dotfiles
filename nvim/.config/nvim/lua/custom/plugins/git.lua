@@ -27,7 +27,7 @@ return {
           { "<leader>gr", ":Gitsigns reset_hunk<CR>", mode = "v", buffer = buffer, desc = "Reset Hunk" },
           { "<leader>gu", gs.undo_stage_hunk, buffer = buffer, desc = "Undo Stage Hunk" },
           { "<leader>gp", gs.preview_hunk, buffer = buffer, desc = "Preview Hunk" },
-          { "<leader>gl", function() gs.blame_line({full = true}) end, buffer = buffer, desc = "Blame Line" },
+          { "<leader>gj", function() gs.blame_line({full = true}) end, buffer = buffer, desc = "Blame Line" },
           { "ih", ":<C-U>Gitsigns select_hunk<CR>", mode = "x", buffer = buffer, desc = "GitSigns Select Hunk" },
           { "ih", ":<C-U>Gitsigns select_hunk<CR>", mode = "o", buffer = buffer, desc = "GitSigns Select Hunk" },
         }
@@ -37,6 +37,7 @@ return {
     },
   },
   {
+    ---@module "snacks"
     "folke/snacks.nvim",
     -- stylua: ignore
     keys = {

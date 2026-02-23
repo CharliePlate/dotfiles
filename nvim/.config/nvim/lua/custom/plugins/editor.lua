@@ -26,7 +26,6 @@ return {
     ---@type wk.Opts
     opts = {
       defaults = {},
-      preset = "helix",
       spec = {
         {
           mode = { "n" },
@@ -40,6 +39,7 @@ return {
           { "<leader>t", group = "test" },
           { "<leader>x", group = "diagnostic" },
           { "<leader>s", group = "search" },
+          { "<leader>o", group = "github" },
         },
       },
     },

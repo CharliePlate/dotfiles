@@ -38,14 +38,13 @@ return {
   },
   {
     "folke/snacks.nvim",
-    opts = {},
-  -- stylua: ignore
-  keys = {
-    { "<leader>oi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (open)" },
-    { "<leader>oI", function() Snacks.picker.gh_issue({ state = "all" }) end, desc = "GitHub Issues (all)" },
-    { "<leader>op", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
-    { "<leader>oP", function() Snacks.picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (all)" },
-  },
+    -- stylua: ignore
+    keys = {
+      { "<leader>oi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (open)" },
+      { "<leader>oI", function() Snacks.picker.gh_issue({ state = "all" }) end, desc = "GitHub Issues (all)" },
+      { "<leader>op", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
+      { "<leader>oP", function() Snacks.picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (all)" },
+    },
   },
   {
     "esmuellert/codediff.nvim",
@@ -59,68 +58,68 @@ return {
     },
     opts = {},
   },
-  {
-    "NeogitOrg/neogit",
-    lazy = true,
-    dependencies = {
-      "nvim-lua/plenary.nvim", -- required
-      "esmuellert/codediff.nvim", -- optional
-      "folke/snacks.nvim", -- optional
-    },
-    cmd = "Neogit",
-    opts = {
-      filewatcher = { enabled = true },
-    },
-    config = function(_, opts)
-      require("neogit").setup(opts)
-
-      local neogit = require("neogit")
-
-      -- Workaround: force refresh after Neogit operations.
-      -- Uses vim.defer_fn to escape plenary async context and allow git to finish writing.
-      vim.api.nvim_create_autocmd("User", {
-        pattern = {
-          "NeogitCommitComplete",
-          "NeogitPushComplete",
-          "NeogitPullComplete",
-          "NeogitFetchComplete",
-          "NeogitRebase",
-          "NeogitMerge",
-          "NeogitReset",
-          "NeogitBranchReset",
-          "NeogitStash",
-          "NeogitCherryPick",
-          "NeogitRevert",
-          "NeogitBranchCheckout",
-          "NeogitBranchCreate",
-          "NeogitBranchDelete",
-          "NeogitTagCreate",
-          "NeogitTagDelete",
-        },
-        group = neogit.autocmd_group,
-        callback = function()
-          -- The status buffer instance is keyed by git worktree root, but
-          -- vim.uv.cwd() may return a subdirectory. Resolve the git root
-          -- so status.instance() can find the correct instance.
-          vim.defer_fn(function()
-            local ok, status = pcall(require, "neogit.buffers.status")
-            if not ok then
-              return
-            end
-
-            local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
-            if git_root and git_root ~= "" then
-              local instance = status.instance(vim.fs.normalize(git_root))
-              if instance then
-                instance:dispatch_refresh({ update_diffs = { "*:*" } }, "autocmd_fallback")
-              end
-            end
-          end, 500)
-        end,
-      })
-    end,
-    keys = {
-      { "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" },
-    },
-  },
+  -- {
+  --   "NeogitOrg/neogit",
+  --   lazy = true,
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim", -- required
+  --     "esmuellert/codediff.nvim", -- optional
+  --     "folke/snacks.nvim", -- optional
+  --   },
+  --   cmd = "Neogit",
+  --   opts = {
+  --     filewatcher = { enabled = true },
+  --   },
+  --   config = function(_, opts)
+  --     require("neogit").setup(opts)
+  --
+  --     local neogit = require("neogit")
+  --
+  --     -- Workaround: force refresh after Neogit operations.
+  --     -- Uses vim.defer_fn to escape plenary async context and allow git to finish writing.
+  --     vim.api.nvim_create_autocmd("User", {
+  --       pattern = {
+  --         "NeogitCommitComplete",
+  --         "NeogitPushComplete",
+  --         "NeogitPullComplete",
+  --         "NeogitFetchComplete",
+  --         "NeogitRebase",
+  --         "NeogitMerge",
+  --         "NeogitReset",
+  --         "NeogitBranchReset",
+  --         "NeogitStash",
+  --         "NeogitCherryPick",
+  --         "NeogitRevert",
+  --         "NeogitBranchCheckout",
+  --         "NeogitBranchCreate",
+  --         "NeogitBranchDelete",
+  --         "NeogitTagCreate",
+  --         "NeogitTagDelete",
+  --       },
+  --       group = neogit.autocmd_group,
+  --       callback = function()
+  --         -- The status buffer instance is keyed by git worktree root, but
+  --         -- vim.uv.cwd() may return a subdirectory. Resolve the git root
+  --         -- so status.instance() can find the correct instance.
+  --         vim.defer_fn(function()
+  --           local ok, status = pcall(require, "neogit.buffers.status")
+  --           if not ok then
+  --             return
+  --           end
+  --
+  --           local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+  --           if git_root and git_root ~= "" then
+  --             local instance = status.instance(vim.fs.normalize(git_root))
+  --             if instance then
+  --               instance:dispatch_refresh({ update_diffs = { "*:*" } }, "autocmd_fallback")
+  --             end
+  --           end
+  --         end, 500)
+  --       end,
+  --     })
+  --   end,
+  --   keys = {
+  --     { "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" },
+  --   },
+  -- },
 }

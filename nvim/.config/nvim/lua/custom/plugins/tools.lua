@@ -97,29 +97,4 @@ return {
       })
     end,
   },
-  {
-    "nvim-orgmode/orgmode",
-    lazy = false,
-    config = function()
-      require("orgmode").setup({
-        org_agenda_files = { "~/orgfiles/**/*" },
-        org_default_notes_file = "~/orgfiles/refile.org",
-        org_startup_folded = "showeverything",
-        mappings = {
-          org = {
-            org_toggle_checkbox = "<leader>ox",
-          },
-        },
-        org_capture_templates = {
-          t = {
-            description = "Task",
-            template = "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n",
-            target = "~/orgfiles/refile.org",
-          },
-        },
-      })
-
-      vim.lsp.enable("org")
-    end,
-  },
 }

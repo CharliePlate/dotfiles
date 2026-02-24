@@ -51,77 +51,77 @@ return {
     end,
   },
   ---@module "mini.files"
-  {
-    "echasnovski/mini.files",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    version = "*",
-    opts = {
-      mappings = {
-        close = "q",
-        go_in = "l",
-        go_in_plus = "<cr>",
-        go_out = "-",
-        go_out_plus = "H",
-        reset = "<BS>",
-        reveal_cwd = "@",
-        show_help = "g?",
-        synchronize = "=",
-        trim_left = "<",
-        trim_right = ">",
-      },
-    },
-    config = function(_, opts)
-      require("mini.files").setup(opts)
-
-      local show_dotfiles = true
-      local filter_show = function(fs_entry)
-        return true
-      end
-      local filter_hide = function(fs_entry)
-        return not vim.startswith(fs_entry.name, ".")
-      end
-
-      local toggle_dotfiles = function()
-        show_dotfiles = not show_dotfiles
-        local new_filter = show_dotfiles and filter_show or filter_hide
-        require("mini.files").refresh({ content = { filter = new_filter } })
-      end
-
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "MiniFilesWindowUpdate",
-        callback = function(args)
-          vim.wo[args.data.win_id].relativenumber = true
-        end,
-      })
-
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "MiniFilesBufferCreate",
-        callback = function(args)
-          local buf_id = args.data.buf_id
-          vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
-        end,
-      })
-
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "MiniFilesActionRename",
-        callback = function(event)
-          ---@module "snacks"
-          Snacks.rename.on_rename_file(event.data.from, event.data.to)
-        end,
-      })
-    end,
-
-    keys = {
-      {
-        "-",
-        function()
-          require("mini.files").open(vim.api.nvim_buf_get_name(0))
-          require("mini.files").reveal_cwd()
-        end,
-        desc = "File Explorer",
-      },
-    },
-  },
+  -- {
+  --   "echasnovski/mini.files",
+  --   dependencies = { "nvim-tree/nvim-web-devicons" },
+  --   version = "*",
+  --   opts = {
+  --     mappings = {
+  --       close = "q",
+  --       go_in = "l",
+  --       go_in_plus = "<cr>",
+  --       go_out = "-",
+  --       go_out_plus = "H",
+  --       reset = "<BS>",
+  --       reveal_cwd = "@",
+  --       show_help = "g?",
+  --       synchronize = "=",
+  --       trim_left = "<",
+  --       trim_right = ">",
+  --     },
+  --   },
+  --   config = function(_, opts)
+  --     require("mini.files").setup(opts)
+  --
+  --     local show_dotfiles = true
+  --     local filter_show = function(fs_entry)
+  --       return true
+  --     end
+  --     local filter_hide = function(fs_entry)
+  --       return not vim.startswith(fs_entry.name, ".")
+  --     end
+  --
+  --     local toggle_dotfiles = function()
+  --       show_dotfiles = not show_dotfiles
+  --       local new_filter = show_dotfiles and filter_show or filter_hide
+  --       require("mini.files").refresh({ content = { filter = new_filter } })
+  --     end
+  --
+  --     vim.api.nvim_create_autocmd("User", {
+  --       pattern = "MiniFilesWindowUpdate",
+  --       callback = function(args)
+  --         vim.wo[args.data.win_id].relativenumber = true
+  --       end,
+  --     })
+  --
+  --     vim.api.nvim_create_autocmd("User", {
+  --       pattern = "MiniFilesBufferCreate",
+  --       callback = function(args)
+  --         local buf_id = args.data.buf_id
+  --         vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
+  --       end,
+  --     })
+  --
+  --     vim.api.nvim_create_autocmd("User", {
+  --       pattern = "MiniFilesActionRename",
+  --       callback = function(event)
+  --         ---@module "snacks"
+  --         Snacks.rename.on_rename_file(event.data.from, event.data.to)
+  --       end,
+  --     })
+  --   end,
+  --
+  --   keys = {
+  --     {
+  --       "-",
+  --       function()
+  --         require("mini.files").open(vim.api.nvim_buf_get_name(0))
+  --         require("mini.files").reveal_cwd()
+  --       end,
+  --       desc = "File Explorer",
+  --     },
+  --   },
+  -- },
   ---@module "mini.surround"
   {
     "echasnovski/mini.surround",

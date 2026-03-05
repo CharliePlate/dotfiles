@@ -7,7 +7,16 @@ return {
       ---@type snacks.lazygit.Config
       lazygit = {},
       picker = {},
-      indent = {},
+      indent = {
+        filter = function(buf)
+          local filetype = vim.bo[buf].filetype
+          if filetype == "dashboard" or filetype == "dashboardpreview" then
+            return false
+          end
+
+          return vim.g.snacks_indent ~= false and vim.b[buf].snacks_indent ~= false and vim.bo[buf].buftype == ""
+        end,
+      },
     },
     lazy = false,
     priority = 1000,

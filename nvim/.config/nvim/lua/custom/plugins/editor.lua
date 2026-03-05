@@ -191,6 +191,12 @@ return {
     ---@type oil.SetupOpts
     opts = {
       default_file_explorer = true,
+      float = {
+        padding = 0,
+        max_width = 0,
+        max_height = 0,
+        border = "rounded",
+      },
       columns = {
         "permissions",
         "size",
@@ -234,7 +240,7 @@ return {
       {
         "-",
         function()
-          require("oil").open()
+          require("oil").toggle_float()
         end,
         desc = "Open parent directory",
       },

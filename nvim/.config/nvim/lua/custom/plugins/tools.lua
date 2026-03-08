@@ -31,19 +31,9 @@ return {
         go = { "goimports", "gofumpt" },
         json = { "prettierd" },
         yaml = { "prettierd" },
-        sql = { "sleek" },
+        sql = { "pg_format" },
       },
     },
-    config = function(_, opts)
-      local conform = require("conform")
-      conform.formatters.sleek = {
-        append_args = function()
-          return { "-i", "2", "-U", "false" }
-        end,
-      }
-
-      conform.setup(opts)
-    end,
   },
 
   {

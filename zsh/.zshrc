@@ -48,10 +48,12 @@ export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/Library/Python/3.9/bin:$PATH
 export PATH=$HOME/.config/emacs/bin:$PATH
 export PATH=$HOME/.local/share/nvim/mason/bin:$PATH
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 export EDITOR='nvim'
 export XDG_CONFIG_HOME=$HOME/.config
 export TERM=xterm-256color
-# source ~/.zshrc_private
+source ~/.zshrc_private
 source <(fzf --zsh)
 
 alias zshrc="nvim ~/.zshrc"
@@ -62,6 +64,9 @@ alias ls="eza"
 alias python="python3"
 alias pip="pip3"
 alias vim=nvim
+
+export TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/docker.sock
+export DOCKER_HOST="unix://${HOME}/.config/colima/docker.sock"
 
 
 [[ $TMUX ]] && alias fzf=fzf --tmux
